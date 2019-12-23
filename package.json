@@ -1,0 +1,30 @@
+{
+  "name": "do-moderator-toolbox",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "parcel src/index.js --out-dir dev --port 8000",
+    "test": "npm run test:eslint && npm run test:scss",
+    "test:eslint": "eslint 'src/**/*.{js,vue}'",
+    "test:eslint:fix": "npm run test:eslint -- --fix",
+    "test:scss": "sass-lint 'src/**/*.scss' --verbose --no-exit --config .sasslintrc"
+  },
+  "author": "DigitalOcean",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@babel/runtime": "^7.7.7",
+    "babel-polyfill": "^6.26.0",
+    "parcel-bundler": "^1.12.4",
+    "vue": "^2.6.11",
+    "vue-hot-reload-api": "^2.3.4"
+  },
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^3.1.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-vue": "^6.0.1",
+    "sass": "^1.24.0",
+    "sass-lint": "^1.13.1",
+    "vue-template-compiler": "^2.6.11"
+  }
+}
