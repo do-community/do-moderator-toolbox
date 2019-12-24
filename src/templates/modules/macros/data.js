@@ -8,7 +8,7 @@ const responses = {
     "Reach out to support": "{{P:opener}}Please reach out to our amazing support team who will be more than happy to assist you with your account issue! :)\n\n> https://www.digitalocean.com/company/contact/#support{{P:closer}}",
     "Asked support to check ticket": "{{P:opener}}I have asked our amazing support team to check-in on your ticket. They will be able to help you further where we cannot! :){{P:closer}}",
     "Do you have a ticket number?": "{{P:opener}}Do you have a ticket number from when you contacted our support team so that I can get this followed up for you?{{P:closer}}",
-    "Old Q - Do you have a ticket number?": "{{P:opener}}I'm hoping that you've now managed to get this resolved, but if not, do you have a ticket number from when you contacted our support team so that I can get this followed up for you?{{P:closer}}",
+    "Old Question: Do you have a ticket number?": "{{P:opener}}I'm hoping that you've now managed to get this resolved, but if not, do you have a ticket number from when you contacted our support team so that I can get this followed up for you?{{P:closer}}",
 };
 
 const render = (string, app) => {

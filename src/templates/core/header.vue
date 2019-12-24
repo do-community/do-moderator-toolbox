@@ -15,8 +15,9 @@ limitations under the License.
 -->
 
 <template>
-    <div>
+    <div class="dmt-header">
         <h3>{{ getGreeting(app.$data.user.first_name) }}</h3>
+        <i :class="`icon icon-${this.icon()}`" @click="this.button"></i>
     </div>
 </template>
 
@@ -27,6 +28,14 @@ limitations under the License.
         name: 'Header',
         methods: {
             getGreeting,
+            icon() {
+                if (this.$data.app.$data.state === 'home') return 'close';
+                return 'arrow-left';
+            },
+            button() {
+                if (this.$data.app.$data.state === 'home') return this.$data.app.$data.showToolbox = false;
+                return this.$data.app.$data.state = 'home';
+            },
         },
         data() {
             return {

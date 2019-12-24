@@ -16,6 +16,11 @@ limitations under the License.
 
 <template>
     <div v-if="app.$data.state === 'settings'">
+        <PrettyCheck class="p-switch p-fill" @change="this.hideModeratorToolbar" :checked="hideModeratorToolbarInitial">
+            Hide Moderator Toolbar</PrettyCheck>
+
+        <PrettyCheck class="p-switch p-fill" @change="this.openOnLoad" :checked="openOnLoadInitial">
+            Open Toolbox on Page Load</PrettyCheck>
     </div>
     <div v-else-if="app.$data.state === 'home'">
         <hr/>
@@ -25,6 +30,7 @@ limitations under the License.
 
 <script>
     const storage = require("../../../utils/storage");
+    const PrettyCheck = require('pretty-checkbox-vue/check');
 
     let openedOnLoad = false;
 
@@ -52,10 +58,25 @@ limitations under the License.
 
     module.exports = {
         name: 'Settings',
+        components: {
+            PrettyCheck,
+        },
         data() {
             return {
                 app: null,
+                hideModeratorToolbarInitial: storage.get('hideModeratorToolbar'),
+                openOnLoadInitial: storage.get('openOnLoad'),
             };
+        },
+        methods: {
+            hideModeratorToolbar(val) {
+                storage.set('hideModeratorToolbar', val);
+                runCallbacks(this.$data.app);
+            },
+            openOnLoad(val) {
+                storage.set('openOnLoad', val);
+                runCallbacks(this.$data.app);
+            },
         },
         created() {
             this.$data.app = this.$parent;

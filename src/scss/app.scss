@@ -19,6 +19,7 @@ limitations under the License.
 
 .dmt-container {
   @import "~vue-select/src/scss/vue-select";
+  @import '~pretty-checkbox/src/pretty-checkbox.scss';
 
   align-items: center;
   display: none;
@@ -58,10 +59,23 @@ limitations under the License.
     min-width: 50%;
     padding: 2rem;
 
-    h3 {
+    .dmt-header {
       border-bottom: 1px solid $gray;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
       margin: 0 0 .75rem;
       padding-bottom: .25rem;
+
+      h3 {
+        flex-grow: 1;
+        margin: 0;
+        padding: 0;
+      }
+
+      i {
+        cursor: pointer;
+      }
     }
 
     h4 {
@@ -69,9 +83,9 @@ limitations under the License.
     }
 
     hr {
-      border: none;
-      height: 1px;
       background: $gray;
+      border: 0;
+      height: 1px;
       margin: 1rem 0;
     }
 
@@ -97,5 +111,10 @@ limitations under the License.
         background: $dark-blue;
       }
     }
+  }
+
+  .pretty.p-switch.p-fill input:checked ~ .state::before {
+    background: $blue !important;
+    border-color: $blue !important;
   }
 }

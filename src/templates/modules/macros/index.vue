@@ -57,7 +57,7 @@ limitations under the License.
                 document.getElementById('answer_content').value = this.$refs.textarea.value;
                 document.querySelector('#new_answer .answer-submit-button').click();
                 this.reset();
-                this.$refs.dropdown.set(null); // TODO: this needs to reset the selected value
+                this.$refs.dropdown.set(null);
                 this.$data.app.$data.showToolbox = false;
             }
         },
