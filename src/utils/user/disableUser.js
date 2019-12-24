@@ -14,8 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-module.exports = [
-    require('./queues/index.vue'),
-    require('./macros/index.vue'),
-    require('./settings/index.vue'),
-];
+const getMetaCSRF = require('../getMetaCSRF');
+
+module.exports = async userId => {
+    await fetch('/community/api/users/' + userId + '/disable', {
+        method: 'PATCH',
+        headers: {'x-csrf-token': getMetaCSRF()},
+    });
+};
