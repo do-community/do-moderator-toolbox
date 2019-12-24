@@ -14,24 +14,67 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+@import "variables";
+@import "overwrites";
+
 .dmt-container {
   align-items: center;
-  background: rgba($dark-blue, .75);
-  display: flex;
+  display: none;
   height: 100%;
   justify-content: center;
   left: 0;
   margin: 0;
   padding: 0;
+  pointer-events: none;
   position: fixed;
   top: 0;
+  visibility: hidden;
   width: 100%;
   z-index: 9999;
 
+  &.dmt-container-active {
+    display: flex;
+    pointer-events: auto;
+    visibility: visible;
+  }
+
+  .dmt-background {
+    background: rgba($dark-blue, .85);
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+  }
+
   .dmt-main {
     background: $white;
-    border-radius: 4px;
+    border-radius: $radius;
+    color: $dark-blue;
     margin: 0;
+    min-width: 50%;
     padding: 2rem;
+
+    h3 {
+      border-bottom: 1px solid $gray;
+      margin: 0 0 .75rem;
+      padding-bottom: .25rem;
+    }
+
+    .dmt-button {
+      background: $blue;
+      border-radius: $radius;
+      color: $white;
+      cursor: pointer;
+      display: inline-block;
+      margin: 0 .3rem;
+      padding: .3rem .6rem;
+      transition: background .2s ease-in-out;
+
+      &:hover {
+        background: $dark-blue;
+      }
+    }
   }
 }

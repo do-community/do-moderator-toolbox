@@ -19,38 +19,58 @@ limitations under the License.
 </style>
 
 <template>
-    <div v-if="showToolbox" class="dmt-container">
-        <div class="dmt-main">
-            <h1>{{ getCurrentAdmin() }}</h1>
+    <div>
+        <div :class="`dmt-container${showToolbox ? ' dmt-container-active' : ''}`">
+            <div class="dmt-background" @click="showToolbox = false"></div>
+            <div class="dmt-main">
+                <h3>{{ getGreeting(getCurrentAdmin()) }}</h3>
+
+                <div v-for="mod in modules">
+                    <component :is="mod.name"></component>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+    // Load utils
+    const storage = require("../utils/storage");
     const getCurrentAdmin = require('../utils/getCurrentAdmin');
+    const getGreeting = require('../utils/getGreeting');
+
+    // Load in modules
+    const modules = require('./modules');
+    const components = {};
+    modules.forEach(mod => {
+        components[mod.name] = mod;
+    });
 
     module.exports = {
         name: 'App',
+        components,
         data() {
             return {
+                state: 'home',
                 showToolbox: false,
+                modules,
             };
         },
         methods: {
             getCurrentAdmin,
-            keyPressListener(e) {
+            getGreeting,
+            keyListener(e) {
                 console.log(e);
-                if (e.key !== '`') return;
                 if (e.target !== document.body) return;
-                this.$data.showToolbox = !this.$data.showToolbox;
-                console.log(this.$data.showToolbox);
+                if (e.key === '`') return this.$data.showToolbox = !this.$data.showToolbox;
+                if (e.key === 'Escape' || e.key === 'Esc') return this.$data.showToolbox = false;
             },
         },
         mounted() {
-            document.addEventListener('keypress', this.keyPressListener);
+            document.addEventListener('keydown', this.keyListener);
         },
         destroyed() {
-            document.removeEventListener('keypress', this.keyPressListener);
+            document.removeEventListener('keydown', this.keyListener);
         },
     };
 </script>

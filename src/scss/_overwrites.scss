@@ -1,0 +1,15 @@
+html {
+  body {
+    &.dmt-hide-toolbar {
+      margin-left: 0;
+
+      .moderation-bar {
+        display: none;
+      }
+
+      .moderation-actions {
+        left: 20px;
+      }
+    }
+  }
+}
