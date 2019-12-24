@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "parcel src/index.js --out-dir dev --port 8000",
+    "build": "parcel build src/index.js --out-dir build --no-source-maps --no-content-hash",
     "test": "npm run test:eslint && npm run test:scss",
     "test:eslint": "eslint 'src/**/*.{js,vue}'",
     "test:eslint:fix": "npm run test:eslint -- --fix",

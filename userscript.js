@@ -4,14 +4,15 @@
 // @version      0.1
 // @description  A useful set of moderator tools for the DO Community team
 // @author       DigitalOcean
-// @match        https://www.digitalocean.com/community
+// @include      https://www.digitalocean.com/community*
+// @include      https://www.s2r1.internal.digitalocean.com/community*
 // @grant        none
 // ==/UserScript==
 
 (function() {
     'use strict';
 
-    var host = 'http://localhost:8000/';
+    var host = 'https://do-community.github.io/do-moderator-toolbox/';
     var script = document.createElement('script');
     script.type = 'text/javascript';
     script.async = true;

@@ -19,7 +19,7 @@ limitations under the License.
 
 .dmt-container {
   @import "~vue-select/src/scss/vue-select";
-  @import '~pretty-checkbox/src/pretty-checkbox.scss';
+  @import "~pretty-checkbox/src/pretty-checkbox";
 
   align-items: center;
   display: none;
