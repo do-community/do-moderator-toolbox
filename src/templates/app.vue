@@ -34,6 +34,9 @@ limitations under the License.
 </template>
 
 <script>
+    // Load in utils
+    const getCurrentAdmin = require('../utils/getCurrentAdmin');
+
     // Load in core components
     const Header = require('./core/header.vue');
     const components = {
@@ -54,6 +57,7 @@ limitations under the License.
                 state: 'home',
                 showToolbox: false,
                 modules,
+                user: getCurrentAdmin(),
             };
         },
         methods: {

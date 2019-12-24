@@ -18,6 +18,8 @@ limitations under the License.
 @import "overwrites";
 
 .dmt-container {
+  @import "~vue-select/src/scss/vue-select";
+
   align-items: center;
   display: none;
   height: 100%;
@@ -62,6 +64,17 @@ limitations under the License.
       padding-bottom: .25rem;
     }
 
+    h4 {
+      margin: .75rem 0 .25rem;
+    }
+
+    hr {
+      border: none;
+      height: 1px;
+      background: $gray;
+      margin: 1rem 0;
+    }
+
     .dmt-button {
       background: $blue;
       border-radius: $radius;
@@ -71,6 +84,14 @@ limitations under the License.
       margin: 0 .3rem;
       padding: .3rem .6rem;
       transition: background .2s ease-in-out;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
 
       &:hover {
         background: $dark-blue;

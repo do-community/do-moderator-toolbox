@@ -18,7 +18,8 @@ limitations under the License.
     <div v-if="app.$data.state === 'settings'">
     </div>
     <div v-else-if="app.$data.state === 'home'">
-        <a class="dmt-button" @click="app.$data.state = 'settings'">Toolbox Settings</a>
+        <hr/>
+        <div><a class="dmt-button" @click="app.$data.state = 'settings'">Toolbox Settings</a></div>
     </div>
 </template>
 

@@ -15,26 +15,36 @@ limitations under the License.
 -->
 
 <template>
-    <div>
-        <h3>{{ getGreeting(app.$data.user.first_name) }}</h3>
-    </div>
+    <vueSelect :options="Object.keys(responses)" @input="this.input" v-model="select"></vueSelect>
 </template>
 
 <script>
-    const getGreeting = require('../../utils/getGreeting');
+    const { responses } = require('./data');
+
+    const vueSelect = require('vue-select').default;
 
     module.exports = {
-        name: 'Header',
-        methods: {
-            getGreeting,
+        name: 'MacrosDropdown',
+        components: {
+            vueSelect,
         },
         data() {
             return {
                 app: null,
+                select: null,
+                responses,
             };
         },
+        methods: {
+            set(val) {
+                this.$data.select = val;
+            },
+            input(val) {
+                this.$emit('input', val);
+            },
+        },
         created() {
-            this.$data.app = this.$parent;
+            this.$data.app = this.$parent.$data.app;
         },
     };
 </script>
