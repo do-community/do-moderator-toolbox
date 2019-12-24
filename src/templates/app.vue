@@ -23,7 +23,7 @@ limitations under the License.
         <div :class="`dmt-container${showToolbox ? ' dmt-container-active' : ''}`">
             <div class="dmt-background" @click="showToolbox = false"></div>
             <div class="dmt-main">
-                <h3>{{ getGreeting(getCurrentAdmin()) }}</h3>
+                <Header></Header>
 
                 <div v-for="mod in modules">
                     <component :is="mod.name"></component>
@@ -34,14 +34,14 @@ limitations under the License.
 </template>
 
 <script>
-    // Load utils
-    const storage = require("../utils/storage");
-    const getCurrentAdmin = require('../utils/getCurrentAdmin');
-    const getGreeting = require('../utils/getGreeting');
+    // Load in core components
+    const Header = require('./core/header.vue');
+    const components = {
+        Header,
+    };
 
     // Load in modules
     const modules = require('./modules');
-    const components = {};
     modules.forEach(mod => {
         components[mod.name] = mod;
     });
@@ -57,8 +57,6 @@ limitations under the License.
             };
         },
         methods: {
-            getCurrentAdmin,
-            getGreeting,
             keyListener(e) {
                 console.log(e);
                 if (e.target !== document.body) return;
