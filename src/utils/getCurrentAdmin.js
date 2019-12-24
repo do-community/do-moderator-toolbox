@@ -20,6 +20,6 @@ module.exports = () => {
     return {
         username: document.body.getAttribute('data-user-id'),
         first_name: document.body.querySelector('nav.do_nav ul.primary li:last-child header').textContent.split(' ')[0],
-        full_name: document.body.querySelector('nav.do_nav ul.primary li:last-child header').textContent
+        full_name: document.body.querySelector('nav.do_nav ul.primary li:last-child header').textContent,
     };
 };

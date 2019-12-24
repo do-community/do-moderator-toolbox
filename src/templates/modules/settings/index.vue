@@ -16,20 +16,24 @@ limitations under the License.
 
 <template>
     <div v-if="app.$data.state === 'settings'">
-        <PrettyCheck class="p-switch p-fill" @change="this.hideModeratorToolbar" :checked="hideModeratorToolbarInitial">
-            Hide Moderator Toolbar</PrettyCheck>
+        <h4>Moderator Toolbox Settings</h4>
 
-        <PrettyCheck class="p-switch p-fill" @change="this.openOnLoad" :checked="openOnLoadInitial">
-            Open Toolbox on Page Load</PrettyCheck>
+        <PrettyCheck class="p-switch p-fill" :checked="hideModeratorToolbarInitial" @change="hideModeratorToolbar">
+            Hide Moderator Toolbar
+        </PrettyCheck>
+
+        <PrettyCheck class="p-switch p-fill" :checked="openOnLoadInitial" @change="openOnLoad">
+            Open Toolbox on Page Load
+        </PrettyCheck>
     </div>
     <div v-else-if="app.$data.state === 'home'">
-        <hr/>
+        <hr />
         <div><a class="dmt-button" @click="app.$data.state = 'settings'">Toolbox Settings</a></div>
     </div>
 </template>
 
 <script>
-    const storage = require("../../../utils/storage");
+    const storage = require('../../../utils/storage');
     const PrettyCheck = require('pretty-checkbox-vue/check');
 
     let openedOnLoad = false;
@@ -80,8 +84,7 @@ limitations under the License.
         },
         created() {
             this.$data.app = this.$parent;
-            console.log('created');
-            runCallbacks(this.$parent);
-        }
+            runCallbacks(this.$data.app);
+        },
     };
 </script>

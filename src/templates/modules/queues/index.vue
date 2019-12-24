@@ -27,7 +27,7 @@ limitations under the License.
         return {
             link: href,
             text: elm.textContent,
-        }
+        };
     };
 
     const queues = [
@@ -36,7 +36,7 @@ limitations under the License.
         {
             link: '/community/questions?primary_filter=unanswered',
             text: 'Unanswered Questions',
-        }
+        },
     ];
 
     module.exports = {

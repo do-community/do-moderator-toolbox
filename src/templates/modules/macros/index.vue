@@ -15,14 +15,14 @@ limitations under the License.
 -->
 
 <template>
-    <div v-if="this.active()">
+    <div v-if="active()">
         <div v-if="['home', 'macros'].includes(app.$data.state)">
             <h4>Question response macros</h4>
-            <dropdown @input="this.input" ref="dropdown"></dropdown>
+            <dropdown ref="dropdown" @input="input"></dropdown>
         </div>
         <div v-if="app.$data.state === 'macros'">
-            <textarea :rows="rows" ref="textarea">{{ rendered }}</textarea>
-            <div><a class="dmt-button" @click="this.post">Post as Answer</a></div>
+            <textarea v-model="rendered" :rows="rows"></textarea>
+            <div><a class="dmt-button" @click="post">Post as Answer</a></div>
         </div>
     </div>
 </template>
@@ -38,7 +38,7 @@ limitations under the License.
         },
         methods: {
             active() {
-                return !!(window.location.pathname.match(/\/community\/questions\/.+/))
+                return !!(window.location.pathname.match(/\/community\/questions\/.+/));
             },
             reset() {
                 this.$data.app.$data.state = 'home';
@@ -54,12 +54,12 @@ limitations under the License.
                 this.$data.app.$data.state = 'macros';
             },
             post() {
-                document.getElementById('answer_content').value = this.$refs.textarea.value;
+                document.getElementById('answer_content').value = this.$data.rendered;
                 document.querySelector('#new_answer .answer-submit-button').click();
                 this.reset();
                 this.$refs.dropdown.set(null);
                 this.$data.app.$data.showToolbox = false;
-            }
+            },
         },
         data() {
             return {

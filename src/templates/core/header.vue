@@ -17,7 +17,7 @@ limitations under the License.
 <template>
     <div class="dmt-header">
         <h3>{{ getGreeting(app.$data.user.first_name) }}</h3>
-        <i :class="`icon icon-${this.icon()}`" @click="this.button"></i>
+        <i :class="`icon icon-${icon()}`" @click="button"></i>
     </div>
 </template>
 

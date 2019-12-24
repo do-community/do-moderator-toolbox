@@ -15,7 +15,7 @@ limitations under the License.
 -->
 
 <template>
-    <vueSelect :options="Object.keys(responses)" @input="this.input" v-model="select"></vueSelect>
+    <vueSelect v-model="select" :options="Object.keys(responses)" @input="input"></vueSelect>
 </template>
 
 <script>
