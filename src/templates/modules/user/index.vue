@@ -16,7 +16,7 @@ limitations under the License.
 
 <template>
     <div v-if="active() && app.$data.state === 'home'" class="dmt-user">
-        <hr/>
+        <hr />
         <p>Found user: <code>{{ user }}</code></p>
         <div>
             <a class="dmt-button" @click="disableSpamWipe">Disable, spam all &amp; wipe user</a>
@@ -87,7 +87,7 @@ limitations under the License.
             active,
             wipe(evt) {
                 running(evt.target);
-                if (!confirm("Are you sure?")) done(evt.target);
+                if (!confirm('Are you sure?')) done(evt.target);
                 getUserId().then(id => {
                     wipeUser(id).then(() => {
                         if (this.onUser()) window.location.reload();
@@ -97,7 +97,7 @@ limitations under the License.
             },
             wipeArchive(evt) {
                 running(evt.target);
-                if (!confirm("Are you sure?")) done(evt.target);
+                if (!confirm('Are you sure?')) done(evt.target);
                 getUserId().then(id => {
                     wipeUser(id).then(() => {
                         archiveUser(id).then(hash => {
@@ -109,7 +109,7 @@ limitations under the License.
             },
             wipeDisable(evt) {
                 running(evt.target);
-                if (!confirm("Are you sure?")) done(evt.target);
+                if (!confirm('Are you sure?')) done(evt.target);
                 getUserId().then(id => {
                     wipeUser(id).then(() => {
                         disableUser(id).then(() => {
@@ -122,7 +122,7 @@ limitations under the License.
 
             archive(evt) {
                 running(evt.target);
-                if (!confirm("Are you sure?")) done(evt.target);
+                if (!confirm('Are you sure?')) done(evt.target);
                 getUserId().then(id => {
                     archiveUser(id).then(hash => {
                         if (this.onUser()) window.location.href = '/community/users/' + hash;
@@ -132,7 +132,7 @@ limitations under the License.
             },
             disable(evt) {
                 running(evt.target);
-                if (!confirm("Are you sure?")) done(evt.target);
+                if (!confirm('Are you sure?')) done(evt.target);
                 getUserId().then(id => {
                     disableUser(id).then(() => {
                         if (this.onUser()) window.location.reload();
@@ -142,7 +142,7 @@ limitations under the License.
             },
             spam(evt) {
                 running(evt.target);
-                if (!confirm("Are you sure?")) done(evt.target);
+                if (!confirm('Are you sure?')) done(evt.target);
                 getUserId().then(id => {
                     spamAllUser(id).then(() => {
                         if (this.onUser()) window.location.reload();
@@ -154,7 +154,7 @@ limitations under the License.
 
             disableSpamWipe(evt) {
                 running(evt.target);
-                if (!confirm("Are you sure?")) done(evt.target);
+                if (!confirm('Are you sure?')) done(evt.target);
                 getUserId().then(id => {
                     disableUser(id).then(() => {
                         spamAllUser(id).then(() => {
@@ -167,7 +167,7 @@ limitations under the License.
             },
             archiveSpamWipe(evt) {
                 running(evt.target);
-                if (!confirm("Are you sure?")) done(evt.target);
+                if (!confirm('Are you sure?')) done(evt.target);
                 getUserId().then(id => {
                     archiveUser(id).then(hash => {
                         spamAllUser(id).then(() => {

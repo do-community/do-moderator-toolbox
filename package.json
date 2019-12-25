@@ -1,11 +1,13 @@
 {
   "name": "do-moderator-toolbox",
   "version": "1.0.0",
-  "description": "",
+  "description": "A useful set of moderator tools for the DO Community team",
   "main": "src/index.js",
   "scripts": {
     "dev": "parcel src/index.js --out-dir dev --port 8000",
-    "build": "parcel build src/index.js --out-dir build --no-source-maps --no-content-hash",
+    "build": "npm run build:parcel && npm run build:static",
+    "build:parcel": "parcel build src/index.js --out-dir build --no-source-maps --no-content-hash",
+    "build:static": "copyfiles README.md do-moderator-toolbox.user.js build",
     "test": "npm run test:eslint && npm run test:scss",
     "test:eslint": "eslint 'src/**/*.{js,vue}'",
     "test:eslint:fix": "npm run test:eslint -- --fix",
@@ -24,6 +26,7 @@
   },
   "devDependencies": {
     "@vue/component-compiler-utils": "^3.1.0",
+    "copyfiles": "^2.1.1",
     "eslint": "^6.8.0",
     "eslint-plugin-vue": "^6.0.1",
     "sass": "^1.24.0",
