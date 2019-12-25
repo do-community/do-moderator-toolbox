@@ -110,6 +110,28 @@ limitations under the License.
       &:hover {
         background: $dark-blue;
       }
+
+      &.dmt-button-secondary {
+        background: desaturate($blue, 30%);
+
+        &:hover {
+          background: desaturate($dark-blue, 30%);
+        }
+      }
+
+      &.dmt-button-tertiary {
+        background: desaturate($blue, 80%);
+
+        &:hover {
+          background: desaturate($dark-blue, 80%);
+        }
+      }
+    }
+
+    .dmt-user {
+      div {
+        margin-top: .5rem;
+      }
     }
   }
 

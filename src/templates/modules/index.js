@@ -17,5 +17,6 @@ limitations under the License.
 module.exports = [
     require('./queues/index.vue'),
     require('./macros/index.vue'),
+    require('./user/index.vue'),
     require('./settings/index.vue'),
 ];

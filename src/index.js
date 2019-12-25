@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-require('babel-polyfill');
+if (!window._babelPolyfill) require('babel-polyfill');
 const Vue = require('vue').default;
 const App = require('./templates/app.vue');
 const getCurrentAdmin = require('./utils/getCurrentAdmin');
