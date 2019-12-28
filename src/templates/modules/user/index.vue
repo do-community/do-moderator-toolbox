@@ -85,23 +85,26 @@ limitations under the License.
         },
         methods: {
             active,
+            confirmation() {
+                return confirm('Are you sure?') === true;
+            },
             wipe(evt) {
                 running(evt.target);
-                if (!confirm('Are you sure?')) done(evt.target);
+                if (!this.confirmation()) return done(evt.target);
                 getUserId().then(id => {
                     wipeUser(id).then(() => {
-                        if (this.onUser()) window.location.reload();
+                        if (onUser()) window.location.reload();
                         done(evt.target);
                     });
                 });
             },
             wipeArchive(evt) {
                 running(evt.target);
-                if (!confirm('Are you sure?')) done(evt.target);
+                if (!this.confirmation()) return done(evt.target);
                 getUserId().then(id => {
                     wipeUser(id).then(() => {
                         archiveUser(id).then(hash => {
-                            if (this.onUser()) window.location.href = '/community/users/' + hash;
+                            if (onUser()) window.location.href = '/community/users/' + hash;
                             done(evt.target);
                         });
                     });
@@ -109,11 +112,11 @@ limitations under the License.
             },
             wipeDisable(evt) {
                 running(evt.target);
-                if (!confirm('Are you sure?')) done(evt.target);
+                if (!this.confirmation()) return done(evt.target);
                 getUserId().then(id => {
                     wipeUser(id).then(() => {
                         disableUser(id).then(() => {
-                            if (this.onUser()) window.location.reload();
+                            if (onUser()) window.location.reload();
                             done(evt.target);
                         });
                     });
@@ -122,30 +125,30 @@ limitations under the License.
 
             archive(evt) {
                 running(evt.target);
-                if (!confirm('Are you sure?')) done(evt.target);
+                if (!this.confirmation()) return done(evt.target);
                 getUserId().then(id => {
                     archiveUser(id).then(hash => {
-                        if (this.onUser()) window.location.href = '/community/users/' + hash;
+                        if (onUser()) window.location.href = '/community/users/' + hash;
                         done(evt.target);
                     });
                 });
             },
             disable(evt) {
                 running(evt.target);
-                if (!confirm('Are you sure?')) done(evt.target);
+                if (!this.confirmation()) return done(evt.target);
                 getUserId().then(id => {
                     disableUser(id).then(() => {
-                        if (this.onUser()) window.location.reload();
+                        if (onUser()) window.location.reload();
                         done(evt.target);
                     });
                 });
             },
             spam(evt) {
                 running(evt.target);
-                if (!confirm('Are you sure?')) done(evt.target);
+                if (!this.confirmation()) return done(evt.target);
                 getUserId().then(id => {
                     spamAllUser(id).then(() => {
-                        if (this.onUser()) window.location.reload();
+                        if (onUser()) window.location.reload();
                         else window.location.href = '/community/questions';
                         done(evt.target);
                     });
@@ -154,11 +157,11 @@ limitations under the License.
 
             disableSpamWipe(evt) {
                 running(evt.target);
-                if (!confirm('Are you sure?')) done(evt.target);
+                if (!this.confirmation()) return done(evt.target);
                 getUserId().then(id => {
                     disableUser(id).then(() => {
                         spamAllUser(id).then(() => {
-                            if (this.onUser()) window.location.reload();
+                            if (onUser()) window.location.reload();
                             else window.location.href = '/community/questions';
                             done(evt.target);
                         });
@@ -167,11 +170,11 @@ limitations under the License.
             },
             archiveSpamWipe(evt) {
                 running(evt.target);
-                if (!confirm('Are you sure?')) done(evt.target);
+                if (!this.confirmation()) return done(evt.target);
                 getUserId().then(id => {
                     archiveUser(id).then(hash => {
                         spamAllUser(id).then(() => {
-                            if (this.onUser()) window.location.href = '/community/users/' + hash;
+                            if (onUser()) window.location.href = '/community/users/' + hash;
                             else window.location.href = '/community/questions';
                             done(evt.target);
                         });
