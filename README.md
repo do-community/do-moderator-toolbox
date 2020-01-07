@@ -16,8 +16,9 @@ A compiled Vue app running through a userscript to provide quick and useful acti
  
 ## Installation
 
-[Install the userscript](do-moderator-toolbox.user.js) (ensure you have [TamperMonkey](https://www.tampermonkey.net/) or
-[GreaseMonkey](https://www.greasespot.net/) installed as an extension in your browser to run the userscript).
+[Install the userscript](https://do-community.github.io/do-moderator-toolbox/do-moderator-toolbox.user.js)
+ (ensure you have [TamperMonkey](https://www.tampermonkey.net/) or [GreaseMonkey](https://www.greasespot.net/) installed
+ as an extension in your browser to run the userscript).
 
 ## Usage
 
