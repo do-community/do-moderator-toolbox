@@ -1,5 +1,5 @@
 <!--
-Copyright 2019 DigitalOcean
+Copyright 2020 DigitalOcean
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ limitations under the License.
 
 <template>
     <div>
-        <div :class="`dmt-container${showToolbox ? ' dmt-container-active' : ''}`">
+        <div :class="`dmt dmt-container${showToolbox ? ' dmt-container-active' : ''}`">
             <div class="dmt-background" @click="showToolbox = false"></div>
             <div class="dmt-main">
                 <Header></Header>

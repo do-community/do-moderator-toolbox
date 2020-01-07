@@ -1,5 +1,5 @@
 <!--
-Copyright 2019 DigitalOcean
+Copyright 2020 DigitalOcean
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ limitations under the License.
 </template>
 
 <script>
+    const Vue = require('vue').default;
     const { responses, render } = require('./data');
     const dropdown = require('./dropdown.vue');
 
@@ -45,13 +46,12 @@ limitations under the License.
                 this.$data.rendered = '';
             },
             input(val) {
-                if (val === null) {
-                    this.reset();
-                    return;
-                }
+                if (val === null) return this.reset();
+                this.$refs.dropdown.set(val);
                 this.$data.rendered = render(responses[val], this.$data.app);
                 this.$data.rows = Math.round(this.$data.rendered.split(/\r\n|\r|\n/).length * 1.4);
                 this.$data.app.$data.state = 'macros';
+                this.$data.app.$data.showToolbox = true;
             },
             post() {
                 document.getElementById('answer_content').value = this.$data.rendered;
@@ -70,6 +70,21 @@ limitations under the License.
         },
         created() {
             this.$data.app = this.$parent;
+
+            // Inject a second dropdown into the DOM
+            const DOMDropdown = Vue.extend(dropdown);
+            const instanceDOMDropdown = new DOMDropdown({ parent: this });
+            instanceDOMDropdown.$on('input', this.input);
+            instanceDOMDropdown.$mount();
+            const elementDOMDropdown = document.createElement('div');
+            elementDOMDropdown.className = 'dmt';
+            const titleDOMDropdown = document.createElement('h3');
+            titleDOMDropdown.textContent = 'Moderator Toolbox Macro Responses';
+            elementDOMDropdown.appendChild(titleDOMDropdown);
+            elementDOMDropdown.appendChild(instanceDOMDropdown.$el);
+            elementDOMDropdown.style.marginBottom = '1.5em';
+            const answerForm = document.querySelector('.new-answer .response');
+            if (answerForm) answerForm.insertBefore(elementDOMDropdown, answerForm.firstChild);
         },
     };
 </script>
