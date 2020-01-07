@@ -1,5 +1,5 @@
 <!--
-Copyright 2019 DigitalOcean
+Copyright 2020 DigitalOcean
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -16,8 +16,10 @@ limitations under the License.
 
 <template>
     <div v-if="active() && app.$data.state === 'home'" class="dmt-user">
-        <hr />
-        <p>Found user: <code>{{ user }}</code></p>
+        <hr v-if="!$data.domVersion" />
+        <p v-if="!$data.domVersion">
+            Found user: <code>{{ user }}</code>
+        </p>
         <div>
             <a class="dmt-button" @click="disableSpamWipe">Disable, spam all &amp; wipe user</a>
             <a class="dmt-button dmt-button-secondary" @click="spam">Spam all posts for user</a>
@@ -34,6 +36,7 @@ limitations under the License.
 </template>
 
 <script>
+    const Vue = require('vue').default;
     const archiveUser = require('../../../utils/user/archiveUser');
     const disableUser = require('../../../utils/user/disableUser');
     const getUserData = require('../../../utils/user/getUserData');
@@ -184,6 +187,21 @@ limitations under the License.
         },
         created() {
             this.$data.app = this.$parent;
+
+            if (!this.$data.domVersion) {
+                if (onUser()) {
+                    // Inject a second set of buttons into the DOM
+                    const DOMButtons = Vue.extend(this.constructor);
+                    const instanceDOMButtons = new DOMButtons({ parent: this.$parent, data: { domVersion: true } });
+                    instanceDOMButtons.$mount();
+                    const elementDOMButtons = document.createElement('div');
+                    elementDOMButtons.className = 'dmt Container UserProfileContainer';
+                    elementDOMButtons.style.marginBottom = '1.5em';
+                    elementDOMButtons.appendChild(instanceDOMButtons.$el);
+                    const userContainer = document.querySelector('#users-container');
+                    if (userContainer) userContainer.insertBefore(elementDOMButtons, userContainer.firstChild);
+                }
+            }
         },
     };
 </script>

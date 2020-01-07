@@ -90,49 +90,49 @@ limitations under the License.
       height: 1px;
       margin: 1rem 0;
     }
+  }
 
-    .dmt-button {
-      background: $blue;
-      border-radius: $radius;
-      color: $white;
-      cursor: pointer;
-      display: inline-block;
-      margin: 0 .3rem;
-      padding: .3rem .6rem;
-      transition: background .2s ease-in-out;
+  .dmt-user {
+    div {
+      margin-top: .5rem;
+    }
+  }
 
-      &:first-child {
-        margin-left: 0;
-      }
+  .dmt-button {
+    background: $blue;
+    border-radius: $radius;
+    color: $white;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 .3rem;
+    padding: .3rem .6rem;
+    transition: background .2s ease-in-out;
 
-      &:last-child {
-        margin-right: 0;
-      }
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:hover {
+      background: $dark-blue;
+    }
+
+    &.dmt-button-secondary {
+      background: desaturate($blue, 30%);
 
       &:hover {
-        background: $dark-blue;
-      }
-
-      &.dmt-button-secondary {
-        background: desaturate($blue, 30%);
-
-        &:hover {
-          background: desaturate($dark-blue, 30%);
-        }
-      }
-
-      &.dmt-button-tertiary {
-        background: desaturate($blue, 80%);
-
-        &:hover {
-          background: desaturate($dark-blue, 80%);
-        }
+        background: desaturate($dark-blue, 30%);
       }
     }
 
-    .dmt-user {
-      div {
-        margin-top: .5rem;
+    &.dmt-button-tertiary {
+      background: desaturate($blue, 80%);
+
+      &:hover {
+        background: desaturate($dark-blue, 80%);
       }
     }
   }
