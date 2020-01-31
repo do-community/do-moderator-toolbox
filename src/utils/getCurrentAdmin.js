@@ -19,7 +19,7 @@ module.exports = () => {
     if (!document.body.classList.contains('admin-user')) return;
     return {
         username: document.body.getAttribute('data-user-id'),
-        first_name: document.body.querySelector('nav.do_nav ul.primary li:last-child header').textContent.split(' ')[0],
-        full_name: document.body.querySelector('nav.do_nav ul.primary li:last-child header').textContent,
+        first_name: document.body.querySelector('nav.navbar ul.primary li:last-child header').textContent.split(' ')[0],
+        full_name: document.body.querySelector('nav.navbar ul.primary li:last-child header').textContent,
     };
 };
