@@ -164,9 +164,11 @@ limitations under the License.
                 getUserId().then(id => {
                     disableUser(id).then(() => {
                         spamAllUser(id).then(() => {
-                            if (onUser()) window.location.reload();
-                            else window.location.href = '/community/questions';
-                            done(evt.target);
+                            wipeUser(id).then(() => {
+                                if (onUser()) window.location.reload();
+                                else window.location.href = '/community/questions';
+                                done(evt.target);
+                            });
                         });
                     });
                 });
@@ -177,9 +179,11 @@ limitations under the License.
                 getUserId().then(id => {
                     archiveUser(id).then(hash => {
                         spamAllUser(id).then(() => {
-                            if (onUser()) window.location.href = '/community/users/' + hash;
-                            else window.location.href = '/community/questions';
-                            done(evt.target);
+                            wipeUser(id).then(() => {
+                                if (onUser()) window.location.href = '/community/users/' + hash;
+                                else window.location.href = '/community/questions';
+                                done(evt.target);
+                            });
                         });
                     });
                 });
