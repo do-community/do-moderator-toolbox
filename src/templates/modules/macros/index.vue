@@ -22,7 +22,10 @@ limitations under the License.
         </div>
         <div v-if="app.$data.state === 'macros'">
             <textarea v-model="rendered" :rows="rows"></textarea>
-            <div><a class="dmt-button" @click="post">Post as Answer</a></div>
+            <div>
+                <a class="dmt-button" @click="post">Post as Answer</a>
+                <a class="dmt-button dmt-button-secondary" @click="insert">Insert into Answer textbox</a>
+            </div>
         </div>
     </div>
 </template>
@@ -31,6 +34,21 @@ limitations under the License.
     const Vue = require('vue').default;
     const { responses, render } = require('./data');
     const dropdown = require('./dropdown.vue');
+
+    const answerInput = document.getElementById('answer_content');
+
+    const answerInputEvent = () => {
+        const event = new Event('input', {
+            bubbles: true,
+            cancelable: true,
+        });
+        answerInput.dispatchEvent(event);
+    };
+
+    const setAnswerInput = val => {
+        answerInput.value = val;
+        answerInputEvent();
+    };
 
     module.exports = {
         name: 'Macros',
@@ -53,8 +71,15 @@ limitations under the License.
                 this.$data.app.$data.state = 'macros';
                 this.$data.app.$data.showToolbox = true;
             },
+            insert() {
+                setAnswerInput(this.$data.rendered);
+                this.reset();
+                this.$refs.dropdown.set(null);
+                this.$data.app.$data.showToolbox = false;
+                answerInput.focus();
+            },
             post() {
-                document.getElementById('answer_content').value = this.$data.rendered;
+                setAnswerInput(this.$data.rendered);
                 document.querySelector('#new_answer .answer-submit-button').click();
                 this.reset();
                 this.$refs.dropdown.set(null);

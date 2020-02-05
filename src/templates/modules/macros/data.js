@@ -1,5 +1,5 @@
 /*
-Copyright 2019 DigitalOcean
+Copyright 2020 DigitalOcean
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ const responses = {
     'Reach out to support': '{{P:opener}}Please reach out to our amazing support team who will be more than happy to assist you with your account issue! :)\n\n> https://www.digitalocean.com/support/start/{{P:closer}}',
     'Asked support to check ticket': '{{P:opener}}I have asked our amazing support team to check-in on your ticket. They will be able to help you further where we cannot! :){{P:closer}}',
     'Do you have a ticket number?': '{{P:opener}}Do you have a ticket number from when you contacted our support team so that I can get this followed up for you?{{P:closer}}',
+    'New product idea': 'Hey {{OP}},\n\nGreat idea, sounds like it\'d be super useful!\n\nThe best thing to do to get your voice heard regarding this would be to head over to our Product Ideas board and post a new idea, including as much information as possible for what you\'d like to see implemented.\n\n> https://ideas.digitalocean.com/{{P:closer}}',
     'Old Question: Do you have a ticket number?': '{{P:opener}}I\'m hoping that you\'ve now managed to get this resolved, but if not, do you have a ticket number from when you contacted our support team so that I can get this followed up for you?{{P:closer}}',
 };
 
