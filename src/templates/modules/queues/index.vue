@@ -34,7 +34,7 @@ limitations under the License.
         underReview: getQueue('/community/moderation/under_review?moderation=true'),
         flagged: getQueue('/community/moderation/flagged?moderation=true'),
         unansweredQuestions: {
-            link: '/community/questions?primary_filter=unanswered',
+            link: '/community/questions?secondary_filter=unanswered',
             text: 'Unanswered Questions',
         },
     };
