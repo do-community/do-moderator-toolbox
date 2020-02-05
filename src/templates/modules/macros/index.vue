@@ -21,7 +21,24 @@ limitations under the License.
             <dropdown ref="dropdown" @input="input"></dropdown>
         </div>
         <div v-if="app.$data.state === 'macros'">
-            <textarea v-model="rendered" :rows="rows"></textarea>
+            <div ref="inserts">
+                <div v-if="Object.keys(inserts).length">
+                    <h4>Macro inserts</h4>
+                    <div v-for="[key, val] of Object.entries(inserts)">
+                        <h5>{{ val.name }}</h5>
+                        <input type="text"
+                               :data-insert="key"
+                               :value="val.value"
+                               :placeholder="val.default"
+                               class="dmt-input"
+                               @input="updateInserts"
+                        />
+                    </div>
+
+                    <h4>Macro response</h4>
+                </div>
+            </div>
+            <textarea v-model="rendered" :rows="rows" class="dmt-input"></textarea>
             <div>
                 <a class="dmt-button" @click="post">Post as Answer</a>
                 <a class="dmt-button dmt-button-secondary" @click="insert">Insert into Answer textbox</a>
@@ -32,7 +49,7 @@ limitations under the License.
 
 <script>
     const Vue = require('vue').default;
-    const { responses, render } = require('./data');
+    const { responses, render, getInserts, setInserts } = require('./data');
     const dropdown = require('./dropdown.vue');
 
     const answerInput = document.getElementById('answer_content');
@@ -61,17 +78,35 @@ limitations under the License.
             },
             reset() {
                 this.$data.app.$data.state = 'home';
+                this.$data.macro = '';
+                this.$data.inserts = {};
                 this.$data.rendered = '';
+            },
+            updateInserts() {
+                const elms = this.$refs.inserts.querySelectorAll('[data-insert]');
+                for (const elm of elms) {
+                    const key = elm.getAttribute('data-insert');
+                    if (key in this.$data.inserts) this.$data.inserts[key].value = elm.value;
+                }
+                this.render();
+            },
+            render() {
+                this.$data.rendered = setInserts(this.$data.macro, this.$data.inserts);
             },
             input(val) {
                 if (val === null) return this.reset();
-                this.$refs.dropdown.set(val);
-                this.$data.rendered = render(responses[val], this.$data.app);
-                this.$data.rows = Math.round(this.$data.rendered.split(/\r\n|\r|\n/).length * 1.4);
                 this.$data.app.$data.state = 'macros';
-                this.$data.app.$data.showToolbox = true;
+                this.$refs.dropdown.set(val);
+                this.$data.macro = render(responses[val], this.$data.app);
+                this.$data.inserts = getInserts(this.$data.macro);
+                this.$nextTick(() => {
+                    this.render();
+                    this.$data.rows = Math.round(this.$data.rendered.split(/\r\n|\r|\n/).length * 1.4);
+                    this.$data.app.$data.showToolbox = true;
+                });
             },
             insert() {
+                this.render();
                 setAnswerInput(this.$data.rendered);
                 this.reset();
                 this.$refs.dropdown.set(null);
@@ -79,6 +114,7 @@ limitations under the License.
                 answerInput.focus();
             },
             post() {
+                this.render();
                 setAnswerInput(this.$data.rendered);
                 document.querySelector('#new_answer .answer-submit-button').click();
                 this.reset();
@@ -89,7 +125,9 @@ limitations under the License.
         data() {
             return {
                 app: null,
+                macro: '',
                 rendered: '',
+                inserts: {},
                 rows: 0,
             };
         },

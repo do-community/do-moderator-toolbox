@@ -90,6 +90,19 @@ limitations under the License.
       height: 1px;
       margin: 1rem 0;
     }
+
+    .dmt-input {
+      background: $white;
+      border: 1px solid $gray;
+      border-radius: $radius;
+      display: block;
+      padding: 1em;
+      width: 100%;
+    }
+
+    textarea {
+      margin: 8px 0;
+    }
   }
 
   .dmt-user {
