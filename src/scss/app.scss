@@ -197,6 +197,26 @@ limitations under the License.
     }
   }
 
+  .dmt-badge {
+    background: $blue;
+    border-radius: $radius;
+    color: $white;
+    display: inline-block;
+    font-size: 1.2em;
+    margin: .2rem auto;
+    padding: .3rem .6rem;
+
+    &.dmt-badge-trash {
+      background: $trash;
+      color: darken(rgba($trash, 1), 35%);
+    }
+
+    &.dmt-badge-spam {
+      background: $spam;
+      color: darken(rgba($spam, 1), 35%);
+    }
+  }
+
   .pretty.p-switch.p-fill input:checked ~ .state::before {
     background: $blue !important;
     border-color: $blue !important;

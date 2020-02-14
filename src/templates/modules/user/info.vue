@@ -15,7 +15,10 @@ limitations under the License.
 -->
 
 <template>
-    <div v-if="user" class="dmt dmt-user-info">
+    <div v-if="user" class="dmt">
+        <div v-if="user.attributes['is-disabled']" class="dmt-badge dmt-badge-trash">Disabled</div>
+        <div v-if="user.attributes.email.includes('_archived@')" class="dmt-badge dmt-badge-spam">Archived</div>
+
         <div class="dmt-user-info">
             <h4 class="header_label">
                 Created
