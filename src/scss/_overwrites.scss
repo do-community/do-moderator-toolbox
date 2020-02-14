@@ -14,8 +14,24 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+@mixin post-color($selector, $color,) {
+  .question-content#{$selector},
+  #{$selector} .answer-response > .response-body,
+  #{$selector}.response.comment-body-container > div > .response-body,
+  #{$selector} > .response-body {
+    background: $color;
+    border-radius: 8px;
+    color: darken(rgba($color, 1), 35%);
+    padding: 4px;
+  }
+}
+
 html {
   body {
+    @include post-color('.spam', $spam);
+    @include post-color('.pending', $spam);
+    @include post-color('.deleted-response', $trash);
+
     &.dmt-hide-toolbar {
       margin-left: 0;
 
