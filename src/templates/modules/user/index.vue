@@ -200,10 +200,20 @@ limitations under the License.
                     instanceDOMButtons.$mount();
                     const elementDOMButtons = document.createElement('div');
                     elementDOMButtons.className = 'dmt Container UserProfileContainer';
-                    elementDOMButtons.style.marginBottom = '1.5em';
+                    elementDOMButtons.style.margin = '60px 30px 0';
+                    elementDOMButtons.style.width = '100%';
                     elementDOMButtons.appendChild(instanceDOMButtons.$el);
-                    const userContainer = document.querySelector('#users-container');
-                    if (userContainer) userContainer.insertBefore(elementDOMButtons, userContainer.firstChild);
+                    const userContainer = document.querySelector('.layout-wrapper .layout_columns');
+                    if (userContainer) {
+                        userContainer.insertBefore(elementDOMButtons, userContainer.firstChild);
+
+                        // Nuke the provided app buttons that do the same thing
+                        const archiveButton = document.querySelector('.moderation-actions a[href$="/archive"]');
+                        if (archiveButton) archiveButton.parentElement.remove();
+                        const disableButton = document.querySelector('.moderation-actions a[href$="/disable"]');
+                        if (disableButton) disableButton.parentElement.remove();
+                    }
+
                 }
             }
         },
