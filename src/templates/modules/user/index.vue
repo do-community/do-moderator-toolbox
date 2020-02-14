@@ -43,6 +43,7 @@ limitations under the License.
     const spamAllUser = require('../../../utils/user/spamAllUser');
     const wipeUser = require('../../../utils/user/wipeUser');
     const UserInfo = require('./info');
+    const UserPosts = require('./posts');
 
 
     const onQuestion = () => {
@@ -208,6 +209,13 @@ limitations under the License.
                             userBio.appendChild(instanceDOMUserInfo.$el);
                         }
                     }
+
+                    // Show all user posts
+                    const DOMUserPosts = Vue.extend(UserPosts);
+                    const instanceDOMUserPosts = new DOMUserPosts({ parent: this.$parent });
+                    instanceDOMUserPosts.$mount();
+                    const largeColumn = document.querySelector('.large_column');
+                    if (largeColumn) largeColumn.insertBefore(instanceDOMUserPosts.$el, largeColumn.firstChild);
 
                     // Inject a second set of buttons into the DOM
                     const DOMButtons = Vue.extend(this.constructor);

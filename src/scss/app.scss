@@ -111,6 +111,37 @@ limitations under the License.
     }
   }
 
+  .dmt-user-info {
+    padding: 16px 0 0;
+    text-align: left;
+
+    > .header_label {
+      margin: 0;
+    }
+
+    > code {
+      display: inline-block;
+      font-size: 13px;
+      margin: 0 0 8px;
+      padding: 0 8px;
+    }
+  }
+
+  .dmt-user-posts {
+    .feed {
+      .filter-objects {
+        li {
+          padding: 5px 0 10px;
+
+          .eyebrow,
+          .summary {
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+
   .dmt-button {
     background: $blue;
     border-radius: $radius;
