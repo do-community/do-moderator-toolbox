@@ -28,9 +28,9 @@ limitations under the License.
 
 html {
   body {
-    @include post-color('.spam', $spam);
-    @include post-color('.pending', $spam);
-    @include post-color('.deleted-response', $trash);
+    @include post-color(".spam", $spam);
+    @include post-color(".pending", $spam);
+    @include post-color(".deleted-response", $trash);
 
     &.dmt-hide-toolbar {
       margin-left: 0;

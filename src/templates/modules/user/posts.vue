@@ -30,25 +30,25 @@ limitations under the License.
                 <nav class="navbar">
                     <ul role="menubar" class="primary bounded">
                         <li role="menuitem">
-                            <a @click="filterSet(null)" :class="filter === null ? 'active' : ''">
+                            <a :class="filter === null ? 'active' : ''" @click="filterSet(null)">
                                 All
                                 ({{ posts.length.toLocaleString() }})
                             </a>
                         </li>
                         <li role="menuitem">
-                            <a @click="filterSet('published')" :class="filter === 'published' ? 'active' : ''">
+                            <a :class="filter === 'published' ? 'active' : ''" @click="filterSet('published')">
                                 Published
                                 ({{ posts.filter(p => p.attributes.state === 'published').length.toLocaleString() }})
                             </a>
-                    </li>
+                        </li>
                         <li role="menuitem">
-                            <a @click="filterSet('rejected')" :class="filter === 'rejected' ? 'active' : ''">
+                            <a :class="filter === 'rejected' ? 'active' : ''" @click="filterSet('rejected')">
                                 Spam
                                 ({{ posts.filter(p => p.attributes.state === 'rejected').length.toLocaleString() }})
                             </a>
-                    </li>
+                        </li>
                         <li role="menuitem">
-                            <a @click="filterSet('trashed')" :class="filter === 'trashed' ? 'active' : ''">
+                            <a :class="filter === 'trashed' ? 'active' : ''" @click="filterSet('trashed')">
                                 Trash
                                 ({{ posts.filter(p => p.attributes.state === 'trashed').length.toLocaleString() }})
                             </a>
@@ -132,7 +132,7 @@ limitations under the License.
             filterShow(post) {
                 if (!this.$data.filter) return true;
                 return post.attributes.state === this.$data.filter;
-            }
+            },
         },
         created() {
             this.$data.app = this.$parent;
