@@ -19,40 +19,75 @@ limitations under the License.
         <h3 class="section_header">
             All User Posts
         </h3>
-        <div class="dmt-user-posts feed_container" style="margin-bottom: 2rem;">
+        <div class="dmt-user-posts feed_container">
             <div v-if="state === 0">
                 <a class="dmt-button" @click="loadUserPosts()">Load all posts by user</a>
             </div>
             <div v-if="state === 1">
                 <p>User posts are loading...</p>
             </div>
-            <div v-if="state === 2" class="feed">
-                <div class="filter-objects">
-                    <ul class="feedable-list">
-                        <li v-for="(post, i) in posts" :class="post.type.replace(/s+$/, '')">
-                            <span class="eyebrow">
-                                <b>{{ title(post.attributes.state) }}</b>
-                                {{ title(post.type.replace(/s+$/, "")) }}
-                                <small>(Post #{{ (posts.length - i).toLocaleString() }})</small>
-                            </span>
-                            <h3>
-                                <a :href="post.attributes.url">
-                                    {{ post.attributes.title || `View ${post.type.replace(/s+$/, "")}` }}
-                                </a>
-                            </h3>
-                            <div v-if="post.attributes.content.length > 100" class="summary">
-                                {{ post.attributes.content.substring(0, 100) }}...
-                            </div>
-                            <div v-else class="summary">
-                                {{ post.attributes.content }}
-                            </div>
-                            <div class="meta-section">
-                                <span class="publish-date">
-                                    {{ (new Date(post.attributes['created-at'])).toLocaleString() }}
-                                </span>
-                            </div>
+            <div v-if="state === 2">
+                <nav class="navbar">
+                    <ul role="menubar" class="primary bounded">
+                        <li role="menuitem">
+                            <a @click="filterSet(null)" :class="filter === null ? 'active' : ''">
+                                All
+                                ({{ posts.length.toLocaleString() }})
+                            </a>
+                        </li>
+                        <li role="menuitem">
+                            <a @click="filterSet('published')" :class="filter === 'published' ? 'active' : ''">
+                                Published
+                                ({{ posts.filter(p => p.attributes.state === 'published').length.toLocaleString() }})
+                            </a>
+                    </li>
+                        <li role="menuitem">
+                            <a @click="filterSet('rejected')" :class="filter === 'rejected' ? 'active' : ''">
+                                Spam
+                                ({{ posts.filter(p => p.attributes.state === 'rejected').length.toLocaleString() }})
+                            </a>
+                    </li>
+                        <li role="menuitem">
+                            <a @click="filterSet('trashed')" :class="filter === 'trashed' ? 'active' : ''">
+                                Trash
+                                ({{ posts.filter(p => p.attributes.state === 'trashed').length.toLocaleString() }})
+                            </a>
                         </li>
                     </ul>
+                </nav>
+
+                <div class="feed">
+                    <div class="filter-objects">
+                        <ul class="feedable-list">
+                            <li v-for="(post, i) in posts"
+                                :class="post.type.replace(/s+$/, '')"
+                                :data-state="post.attributes.state"
+                                :style="{ display: filterShow(post) ? 'list-item' : 'none' }"
+                            >
+                                <span class="eyebrow">
+                                    <b>{{ title(post.attributes.state) }}</b>
+                                    {{ title(post.type.replace(/s+$/, "")) }}
+                                    <small>(Post #{{ (posts.length - i).toLocaleString() }})</small>
+                                </span>
+                                <h3>
+                                    <a :href="post.attributes.url">
+                                        {{ post.attributes.title || `View ${post.type.replace(/s+$/, "")}` }}
+                                    </a>
+                                </h3>
+                                <div v-if="post.attributes.content.length > 100" class="summary">
+                                    {{ post.attributes.content.substring(0, 100) }}...
+                                </div>
+                                <div v-else class="summary">
+                                    {{ post.attributes.content }}
+                                </div>
+                                <div class="meta-section">
+                                    <span class="publish-date">
+                                        {{ (new Date(post.attributes['created-at'])).toLocaleString() }}
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -73,6 +108,7 @@ limitations under the License.
                 app: null,
                 state: 0,
                 posts: null,
+                filter: null,
             };
         },
         methods: {
@@ -90,6 +126,13 @@ limitations under the License.
             title(str) {
                 return str.charAt(0).toUpperCase() + str.slice(1);
             },
+            filterSet(type) {
+                this.$data.filter = type;
+            },
+            filterShow(post) {
+                if (!this.$data.filter) return true;
+                return post.attributes.state === this.$data.filter;
+            }
         },
         created() {
             this.$data.app = this.$parent;

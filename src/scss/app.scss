@@ -128,10 +128,26 @@ limitations under the License.
   }
 
   .dmt-user-posts {
+    margin-bottom: 2rem;
+
+    .navbar {
+      margin-bottom: .5rem;
+    }
+
     .feed {
       .filter-objects {
         li {
-          padding: 5px 0 10px;
+          padding: 5px 5px 10px;
+
+          &[data-state="rejected"] {
+            background: $spam;
+            border-radius: 5px;
+          }
+
+          &[data-state="trashed"] {
+            background: $trash;
+            border-radius: 5px;
+          }
 
           .eyebrow,
           .summary {
