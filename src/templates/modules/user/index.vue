@@ -42,6 +42,7 @@ limitations under the License.
     const getUserData = require('../../../utils/user/getUserData');
     const spamAllUser = require('../../../utils/user/spamAllUser');
     const wipeUser = require('../../../utils/user/wipeUser');
+    const UserInfo = require('./info');
 
 
     const onQuestion = () => {
@@ -194,6 +195,20 @@ limitations under the License.
 
             if (!this.$data.domVersion) {
                 if (onUser()) {
+                    // Show more account information
+                    const DOMUserInfo = Vue.extend(UserInfo);
+                    const instanceDOMUserInfo = new DOMUserInfo({ parent: this.$parent });
+                    instanceDOMUserInfo.$mount();
+                    const userBio = document.querySelector('.bio_wrap');
+                    if (userBio) {
+                        // Insert after the name
+                        if (userBio.firstElementChild.nextSibling) {
+                            userBio.insertBefore(instanceDOMUserInfo.$el, userBio.firstElementChild.nextSibling);
+                        } else {
+                            userBio.appendChild(instanceDOMUserInfo.$el);
+                        }
+                    }
+
                     // Inject a second set of buttons into the DOM
                     const DOMButtons = Vue.extend(this.constructor);
                     const instanceDOMButtons = new DOMButtons({ parent: this.$parent, data: { domVersion: true } });
@@ -213,7 +228,6 @@ limitations under the License.
                         const disableButton = document.querySelector('.moderation-actions a[href$="/disable"]');
                         if (disableButton) disableButton.parentElement.remove();
                     }
-
                 }
             }
         },
