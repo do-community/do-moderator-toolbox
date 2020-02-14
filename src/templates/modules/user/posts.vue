@@ -16,7 +16,9 @@ limitations under the License.
 
 <template>
     <section class="dmt">
-        <h3 class="section_header">All User Posts</h3>
+        <h3 class="section_header">
+            All User Posts
+        </h3>
         <div class="dmt-user-posts feed_container" style="margin-bottom: 2rem;">
             <div v-if="state === 0">
                 <a class="dmt-button" @click="loadUserPosts()">Load all posts by user</a>
@@ -27,7 +29,7 @@ limitations under the License.
             <div v-if="state === 2" class="feed">
                 <div class="filter-objects">
                     <ul class="feedable-list">
-                        <li :class="post.type.replace(/s+$/, '')" v-for="(post, i) in posts">
+                        <li v-for="(post, i) in posts" :class="post.type.replace(/s+$/, '')">
                             <span class="eyebrow">
                                 <b>{{ title(post.attributes.state) }}</b>
                                 {{ title(post.type.replace(/s+$/, "")) }}
@@ -38,10 +40,10 @@ limitations under the License.
                                     {{ post.attributes.title || `View ${post.type.replace(/s+$/, "")}` }}
                                 </a>
                             </h3>
-                            <div class="summary" v-if="post.attributes.content.length > 100">
-                               {{ post.attributes.content.substring(0, 100) }}...
+                            <div v-if="post.attributes.content.length > 100" class="summary">
+                                {{ post.attributes.content.substring(0, 100) }}...
                             </div>
-                            <div class="summary" v-else>
+                            <div v-else class="summary">
                                 {{ post.attributes.content }}
                             </div>
                             <div class="meta-section">
@@ -87,7 +89,7 @@ limitations under the License.
             },
             title(str) {
                 return str.charAt(0).toUpperCase() + str.slice(1);
-            }
+            },
         },
         created() {
             this.$data.app = this.$parent;
