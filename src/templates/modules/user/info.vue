@@ -16,40 +16,59 @@ limitations under the License.
 
 <template>
     <div v-if="user" class="dmt-user-info">
-        <h4 class="header_label">Created</h4>
+        <h4 class="header_label">
+            Created
+        </h4>
         <code>{{ (new Date(user.attributes['created-at'])).toLocaleString() }}</code>
 
-        <h4 class="header_label">Updated</h4>
+        <h4 class="header_label">
+            Updated
+        </h4>
         <code>{{ (new Date(user.attributes['updated-at'])).toLocaleString() }}</code>
 
-        <h4 class="header_label">Email</h4>
+        <h4 class="header_label">
+            Email
+        </h4>
         <code>{{ user.attributes.email }}</code>
 
-        <h4 class="header_label">UUID</h4>
+        <h4 class="header_label">
+            UUID
+        </h4>
         <code>{{ user.attributes.uuid }}</code>
 
-        <h4 class="header_label">ID</h4>
+        <h4 class="header_label">
+            ID
+        </h4>
         <code>{{ user.id }}</code>
 
-        <h4 class="header_label">Seen username modal</h4>
+        <h4 class="header_label">
+            Seen username modal
+        </h4>
         <code>{{ user.attributes['viewed-username-prompt'] ? 'Yes' : 'No' }}</code>
 
-        <h4 class="header_label">Ref Code</h4>
+        <h4 class="header_label">
+            Ref Code
+        </h4>
         <code>{{ user.attributes['referral-code'] || 'Not set' }}</code>
 
-        <h4 class="header_label">Admin user</h4>
+        <h4 class="header_label">
+            Admin user
+        </h4>
         <code>{{ user.attributes['is-admin'] ? 'Yes' : 'No' }}</code>
 
-        <h4 class="header_label">Internal User</h4>
+        <h4 class="header_label">
+            Internal User
+        </h4>
         <code>{{ user.attributes['is-internal'] ? 'Yes' : 'No' }}</code>
 
-        <h4 class="header_label">Disabled User</h4>
+        <h4 class="header_label">
+            Disabled User
+        </h4>
         <code>{{ user.attributes['is-disabled'] ? 'Yes' : 'No' }}</code>
     </div>
 </template>
 
 <script>
-    const Vue = require('vue').default;
     const getUserData = require('../../../utils/user/getUserData');
 
     const user = (window.location.pathname.startsWith('/community/questions/') ?
