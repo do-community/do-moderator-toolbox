@@ -101,6 +101,7 @@ limitations under the License.
 </template>
 
 <script>
+    const storage = require('../../../utils/storage');
     const getUserPosts = require('../../../utils/user/getUserPosts');
 
     const user = (window.location.pathname.startsWith('/community/questions/') ?
@@ -142,6 +143,7 @@ limitations under the License.
         },
         created() {
             this.$data.app = this.$parent;
+            if (storage.get('loadPostsOnLoad')) this.loadUserPosts();
         },
     };
 </script>

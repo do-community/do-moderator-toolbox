@@ -1,5 +1,5 @@
 <!--
-Copyright 2019 DigitalOcean
+Copyright 2020 DigitalOcean
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -24,6 +24,10 @@ limitations under the License.
 
         <PrettyCheck class="p-switch p-fill" :checked="openOnLoadInitial" @change="openOnLoad">
             Open Toolbox on Page Load
+        </PrettyCheck>
+
+        <PrettyCheck class="p-switch p-fill" :checked="loadPostsOnLoadInitial" @change="loadPostsOnLoad">
+            Load User Posts on Profile Load
         </PrettyCheck>
     </div>
     <div v-else-if="app.$data.state === 'home'">
@@ -70,6 +74,7 @@ limitations under the License.
                 app: null,
                 hideModeratorToolbarInitial: storage.get('hideModeratorToolbar'),
                 openOnLoadInitial: storage.get('openOnLoad'),
+                loadPostsOnLoadInitial: storage.get('loadPostsOnLoad'),
             };
         },
         methods: {
@@ -79,6 +84,10 @@ limitations under the License.
             },
             openOnLoad(val) {
                 storage.set('openOnLoad', val);
+                runCallbacks(this.$data.app);
+            },
+            loadPostsOnLoad(val) {
+                storage.set('loadPostsOnLoad', val);
                 runCallbacks(this.$data.app);
             },
         },
