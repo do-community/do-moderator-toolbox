@@ -21,14 +21,18 @@ module.exports = async userId => {
     formData.append('data[type]', 'users');
     formData.append('data[id]', userId);
 
-    formData.append('data[attributes][bio]', '');
+    formData.append('data[attributes][avatar]', '');
     formData.append('data[attributes][first_name]', '');
-    formData.append('data[attributes][github_handle]', '');
     formData.append('data[attributes][last_name]', '');
-    formData.append('data[attributes][twitter_handle]', '');
-    formData.append('data[attributes][website]', '');
+    formData.append('data[attributes][title]', '');
+    formData.append('data[attributes][bio]', '');
     formData.append('data[attributes][skills]', '');
     formData.append('data[attributes][learn_more]', '');
+    formData.append('data[attributes][website]', '');
+    formData.append('data[attributes][twitter_handle]', '');
+    formData.append('data[attributes][github_handle]', '');
+    formData.append('data[attributes][linkedin_url]', '');
+    formData.append('data[attributes][preferred_contact_method]', '');
     formData.append('data[attributes][referral_code]', '');
     formData.append('data[attributes][location]', '');
 
