@@ -139,14 +139,24 @@ limitations under the License.
         li {
           padding: 5px 5px 10px;
 
+          &[data-state="rejected"],
+          &[data-state="trashed"],
+          &[data-state="under_review"] {
+            border-radius: 5px;
+            margin: 5px 0;
+            padding: 0 5px 5px;
+          }
+
           &[data-state="rejected"] {
             background: $spam;
-            border-radius: 5px;
           }
 
           &[data-state="trashed"] {
             background: $trash;
-            border-radius: 5px;
+          }
+
+          &[data-state="under_review"] {
+            background: rgba($blue, .3);
           }
 
           .eyebrow,

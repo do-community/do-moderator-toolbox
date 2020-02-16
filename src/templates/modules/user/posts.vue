@@ -48,6 +48,12 @@ limitations under the License.
                             </a>
                         </li>
                         <li role="menuitem">
+                            <a :class="filter === 'under_review' ? 'active' : ''" @click="filterSet('under_review')">
+                                Under Review
+                                ({{ posts.filter(p => p.attributes.state === 'under_review').length.toLocaleString() }})
+                            </a>
+                        </li>
+                        <li role="menuitem">
                             <a :class="filter === 'trashed' ? 'active' : ''" @click="filterSet('trashed')">
                                 Trash
                                 ({{ posts.filter(p => p.attributes.state === 'trashed').length.toLocaleString() }})
