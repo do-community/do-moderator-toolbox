@@ -1,5 +1,5 @@
 /*
-Copyright 2019 DigitalOcean
+Copyright 2020 DigitalOcean
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ module.exports = async userId => {
     formData.append('data[attributes][twitter_handle]', '');
     formData.append('data[attributes][github_handle]', '');
     formData.append('data[attributes][linkedin_url]', '');
-    formData.append('data[attributes][preferred_contact_method]', '');
+    formData.append('data[attributes][preferred_contact_method]', 'preferred_contact_method_none');
     formData.append('data[attributes][referral_code]', '');
     formData.append('data[attributes][location]', '');
 
