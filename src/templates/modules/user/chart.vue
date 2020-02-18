@@ -84,7 +84,7 @@ limitations under the License.
                             pointHoverRadius: 8,
                             fill: false,
                             data: keys.map(key => { return { x: key, y: byMonth[key].length }; }),
-                        }
+                        },
                     ],
                 },
                 options: {
