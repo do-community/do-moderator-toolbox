@@ -27,6 +27,8 @@ limitations under the License.
                 <p>User posts are loading...</p>
             </div>
             <div v-if="state === 2">
+                <UserChart :posts="posts"></UserChart>
+
                 <nav class="navbar">
                     <ul role="menubar" class="primary bounded">
                         <li role="menuitem">
@@ -108,8 +110,13 @@ limitations under the License.
         document.body.querySelector('.question-container .section-primary .postable-info-bar-container .username').textContent
         : window.location.pathname.match(/\/community\/users\/(.+)/)[1]);
 
+    const UserChart = require('./chart');
+
     module.exports = {
         name: 'UserPosts',
+        components: {
+            UserChart,
+        },
         data() {
             return {
                 app: null,
