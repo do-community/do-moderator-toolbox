@@ -16,7 +16,9 @@ limitations under the License.
 
 <template>
     <section class="dmt">
-        <canvas ref="chart"></canvas>
+        <div class="dmt-user-chart">
+            <canvas ref="chart"></canvas>
+        </div>
     </section>
 </template>
 
@@ -38,8 +40,6 @@ limitations under the License.
             this.$data.app = this.$parent;
         },
         mounted() {
-            const byMonth = {};
-
             // Start at the oldest post
             let date = new Date(this.$props.posts[this.$props.posts.length - 1].attributes['created-at']);
             date.setDate(1);
@@ -51,6 +51,7 @@ limitations under the License.
             end.setHours(0, 0, 0, 0);
 
             // Find every month between oldest and newest
+            const byMonth = {};
             while (date.valueOf() <= end.valueOf()) {
                 byMonth[`${date.getFullYear()}-${date.getMonth() + 1}`] = [];
                 date.setMonth(date.getMonth() + 1);
@@ -78,18 +79,35 @@ limitations under the License.
                     labels: keys,
                     datasets: [
                         {
-                            label: 'Total contributions',
                             backgroundColor: '#0069ff',
                             pointRadius: 6,
                             pointHoverRadius: 8,
                             fill: false,
-                            data: keys.map(key => byMonth[key].length),
+                            data: keys.map(key => { return { x: key, y: byMonth[key].length }; }),
                         }
                     ],
                 },
                 options: {
                     legend: {
                         display: false,
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: tooltipItem => {
+                                const month = byMonth[tooltipItem.xLabel];
+                                const byType = month.reduce((res, post) => {
+                                    (res[post.type] = res[post.type] || []).push(post);
+                                    return res;
+                                }, {});
+                                return Object.entries(byType)
+                                    .sort((a, b) => b[1].length - a[1].length)
+                                    .map(item => {
+                                        const title = item[0].charAt(0).toUpperCase() + item[0].slice(1);
+                                        const val = item[1].length;
+                                        return `${title}: ${val.toLocaleString()}`;
+                                    });
+                            },
+                        },
                     },
                 },
             });

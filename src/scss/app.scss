@@ -227,6 +227,10 @@ limitations under the License.
     }
   }
 
+  .dmt-user-chart {
+    padding: .5rem 1rem 0 0;
+  }
+
   .pretty.p-switch.p-fill input:checked ~ .state::before {
     background: $blue !important;
     border-color: $blue !important;
