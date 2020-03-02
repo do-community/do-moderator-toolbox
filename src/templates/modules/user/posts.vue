@@ -28,52 +28,71 @@ limitations under the License.
                 <p>User posts are loading...</p>
             </div>
             <div v-if="state === 2">
-
                 <div class="sidebar">
                     <UserChart :posts="posts"></UserChart>
 
                     <ul class="post-stats">
                         <li>
-                            <b>Questions: {{ posts.filter(post => post.type === 'questions').length.toLocaleString() }}</b>
+                            <b>
+                                Questions: {{ posts.filter(p => p.type === 'questions').length.toLocaleString() }}
+                            </b>
                             <ul>
-                                <li>Upvotes: {{ upvotes(posts.filter(post => post.type === 'questions')).toLocaleString() }}</li>
-                                <li><hr/></li>
-                                <li v-for="(statePosts, state) in states(posts.filter(post => post.type === 'questions'))">
+                                <li>
+                                    Upvotes: {{ upvotes(posts.filter(p => p.type === 'questions')).toLocaleString() }}
+                                </li>
+                                <li><hr /></li>
+                                <li v-for="(statePosts, state) in states(posts.filter(p => p.type === 'questions'))">
                                     {{ title(state) }}: {{ statePosts.length.toLocaleString() }}
                                 </li>
                             </ul>
                         </li>
 
                         <li>
-                            <b>Answers: {{ posts.filter(post => post.type === 'answers').length.toLocaleString() }}</b>
+                            <b>
+                                Answers: {{ posts.filter(p => p.type === 'answers').length.toLocaleString() }}
+                            </b>
                             <ul>
-                                <li>Upvotes: {{ upvotes(posts.filter(post => post.type === 'answers')).toLocaleString() }}</li>
-                                <li>Accepted: {{ posts.reduce((prev, post) => prev + (post.type === 'answers' && post.attributes.accepted ? 1 : 0), 0).toLocaleString() }}</li>
-                                <li><hr/></li>
-                                <li v-for="(statePosts, state) in states(posts.filter(post => post.type === 'answers'))">
+                                <li>
+                                    Upvotes: {{ upvotes(posts.filter(p => p.type === 'answers')).toLocaleString() }}
+                                </li>
+                                <li>
+                                    Accepted: {{ posts.reduce((pr, po) => pr + (po.type === 'answers' && po.attributes.accepted ? 1 : 0), 0).toLocaleString() }}
+                                </li>
+                                <li><hr /></li>
+                                <li v-for="(statePosts, state) in states(posts.filter(p => p.type === 'answers'))">
                                     {{ title(state) }}: {{ statePosts.length.toLocaleString() }}
                                 </li>
                             </ul>
                         </li>
 
                         <li>
-                            <b>Tutorials: {{ posts.filter(post => post.type === 'tutorials').length.toLocaleString() }}</b>
+                            <b>
+                                Tutorials: {{ posts.filter(p => p.type === 'tutorials').length.toLocaleString() }}
+                            </b>
                             <ul>
-                                <li>Upvotes: {{ upvotes(posts.filter(post => post.type === 'tutorials')).toLocaleString() }}</li>
-                                <li>Views: {{ views(posts.filter(post => post.type === 'tutorials')).toLocaleString() }}</li>
-                                <li><hr/></li>
-                                <li v-for="(statePosts, state) in states(posts.filter(post => post.type === 'tutorials'))">
+                                <li>
+                                    Upvotes: {{ upvotes(posts.filter(p => p.type === 'tutorials')).toLocaleString() }}
+                                </li>
+                                <li>
+                                    Views: {{ views(posts.filter(p => p.type === 'tutorials')).toLocaleString() }}
+                                </li>
+                                <li><hr /></li>
+                                <li v-for="(statePosts, state) in states(posts.filter(p => p.type === 'tutorials'))">
                                     {{ title(state) }}: {{ statePosts.length.toLocaleString() }}
                                 </li>
                             </ul>
                         </li>
 
                         <li>
-                            <b>Comments: {{ posts.filter(post => post.type === 'comments').length.toLocaleString() }}</b>
+                            <b>
+                                Comments: {{ posts.filter(p => p.type === 'comments').length.toLocaleString() }}
+                            </b>
                             <ul>
-                                <li>Upvotes: {{ upvotes(posts.filter(post => post.type === 'comments')).toLocaleString() }}</li>
-                                <li><hr/></li>
-                                <li v-for="(statePosts, state) in states(posts.filter(post => post.type === 'comments'))">
+                                <li>
+                                    Upvotes: {{ upvotes(posts.filter(p => p.type === 'comments')).toLocaleString() }}
+                                </li>
+                                <li><hr /></li>
+                                <li v-for="(statePosts, state) in states(posts.filter(p => p.type === 'comments'))">
                                     {{ title(state) }}: {{ statePosts.length.toLocaleString() }}
                                 </li>
                             </ul>
@@ -138,7 +157,8 @@ limitations under the License.
                                     </a>
                                 </h3>
                                 <div v-if="post.attributes.content && post.attributes.content.length > 100"
-                                     class="summary">
+                                     class="summary"
+                                >
                                     {{ (post.attributes.content || 'No content').substring(0, 100) }}...
                                 </div>
                                 <div v-else class="summary">
@@ -204,10 +224,12 @@ limitations under the License.
                 return post.attributes.state === this.$data.filter;
             },
             upvotes(posts) {
-                return posts.reduce((prev, post) => 'upvotes-count' in post.attributes ? prev + post.attributes['upvotes-count'] : prev, 0);
+                return posts.reduce((prev, post) =>
+                    'upvotes-count' in post.attributes ? prev + post.attributes['upvotes-count'] : prev, 0);
             },
             views(posts) {
-                return posts.reduce((prev, post) => 'pageviews' in post.attributes ? prev + post.attributes.pageviews : prev, 0);
+                return posts.reduce((prev, post) =>
+                    'pageviews' in post.attributes ? prev + post.attributes.pageviews : prev, 0);
             },
             states(posts) {
                 const states = {};
@@ -216,7 +238,7 @@ limitations under the License.
                     states[post.attributes.state].push(post);
                 });
                 return states;
-            }
+            },
         },
         created() {
             this.$data.app = this.$parent;

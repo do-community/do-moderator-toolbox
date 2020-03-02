@@ -131,14 +131,14 @@ limitations under the License.
     margin-bottom: 2rem;
 
     .sidebar {
-      padding: .5rem .5rem 2rem;
+      padding: .5rem 1rem 1rem;
 
       ul {
         &.post-stats {
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
-          margin: 1rem .5rem .5rem;
+          margin: 1rem 0 .5rem;
 
           li {
             margin: 0 .25rem;
@@ -149,12 +149,12 @@ limitations under the License.
             }
 
             hr {
-              background: #ddd;
-              border: none;
+              background: $gray;
+              border: 0;
               box-shadow: none;
               height: 1px;
-              width: 50%;
               margin: .25rem 0;
+              width: 50%;
             }
 
             ul {
@@ -263,7 +263,7 @@ limitations under the License.
   }
 
   .dmt-user-chart {
-    padding: .5rem 1rem 0 0;
+    padding: .5rem .5rem 0 0;
   }
 
   .pretty.p-switch.p-fill input:checked ~ .state::before {
