@@ -19,6 +19,7 @@ limitations under the License.
         <h3 class="section_header">
             All User Posts
         </h3>
+
         <div class="dmt-user-posts feed_container">
             <div v-if="state === 0">
                 <a class="dmt-button" @click="loadUserPosts()">Load all posts by user</a>
@@ -27,7 +28,61 @@ limitations under the License.
                 <p>User posts are loading...</p>
             </div>
             <div v-if="state === 2">
-                <UserChart :posts="posts"></UserChart>
+
+                <div class="sidebar">
+                    <UserChart :posts="posts"></UserChart>
+
+                    <ul class="post-stats">
+                        <li>
+                            <b>Questions: {{ posts.filter(post => post.type === 'questions').length.toLocaleString() }}</b>
+                            <ul>
+                                <li>Upvotes: {{ upvotes(posts.filter(post => post.type === 'questions')).toLocaleString() }}</li>
+                                <li><hr/></li>
+                                <li v-for="(statePosts, state) in states(posts.filter(post => post.type === 'questions'))">
+                                    {{ title(state) }}: {{ statePosts.length.toLocaleString() }}
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <b>Answers: {{ posts.filter(post => post.type === 'answers').length.toLocaleString() }}</b>
+                            <ul>
+                                <li>Upvotes: {{ upvotes(posts.filter(post => post.type === 'answers')).toLocaleString() }}</li>
+                                <li>Accepted: {{ posts.reduce((prev, post) => prev + (post.type === 'answers' && post.attributes.accepted ? 1 : 0), 0).toLocaleString() }}</li>
+                                <li><hr/></li>
+                                <li v-for="(statePosts, state) in states(posts.filter(post => post.type === 'answers'))">
+                                    {{ title(state) }}: {{ statePosts.length.toLocaleString() }}
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <b>Tutorials: {{ posts.filter(post => post.type === 'tutorials').length.toLocaleString() }}</b>
+                            <ul>
+                                <li>Upvotes: {{ upvotes(posts.filter(post => post.type === 'tutorials')).toLocaleString() }}</li>
+                                <li>Views: {{ views(posts.filter(post => post.type === 'tutorials')).toLocaleString() }}</li>
+                                <li><hr/></li>
+                                <li v-for="(statePosts, state) in states(posts.filter(post => post.type === 'tutorials'))">
+                                    {{ title(state) }}: {{ statePosts.length.toLocaleString() }}
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <b>Comments: {{ posts.filter(post => post.type === 'comments').length.toLocaleString() }}</b>
+                            <ul>
+                                <li>Upvotes: {{ upvotes(posts.filter(post => post.type === 'comments')).toLocaleString() }}</li>
+                                <li><hr/></li>
+                                <li v-for="(statePosts, state) in states(posts.filter(post => post.type === 'comments'))">
+                                    {{ title(state) }}: {{ statePosts.length.toLocaleString() }}
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <b>Total Upvotes: {{ upvotes(posts).toLocaleString() }}</b>
+                    <!--<b>Total Views: {{ views(posts).toLocaleString() }}</b>-->
+                </div>
 
                 <nav class="navbar">
                     <ul role="menubar" class="primary bounded">
@@ -82,11 +137,12 @@ limitations under the License.
                                         {{ post.attributes.title || `View ${post.type.replace(/s+$/, "")}` }}
                                     </a>
                                 </h3>
-                                <div v-if="post.attributes.content.length > 100" class="summary">
-                                    {{ post.attributes.content.substring(0, 100) }}...
+                                <div v-if="post.attributes.content && post.attributes.content.length > 100"
+                                     class="summary">
+                                    {{ (post.attributes.content || 'No content').substring(0, 100) }}...
                                 </div>
                                 <div v-else class="summary">
-                                    {{ post.attributes.content }}
+                                    {{ (post.attributes.content || 'No content') }}
                                 </div>
                                 <div class="meta-section">
                                     <span class="publish-date">
@@ -147,6 +203,20 @@ limitations under the License.
                 if (!this.$data.filter) return true;
                 return post.attributes.state === this.$data.filter;
             },
+            upvotes(posts) {
+                return posts.reduce((prev, post) => 'upvotes-count' in post.attributes ? prev + post.attributes['upvotes-count'] : prev, 0);
+            },
+            views(posts) {
+                return posts.reduce((prev, post) => 'pageviews' in post.attributes ? prev + post.attributes.pageviews : prev, 0);
+            },
+            states(posts) {
+                const states = {};
+                posts.forEach(post => {
+                    if (!(post.attributes.state in states)) states[post.attributes.state] = [];
+                    states[post.attributes.state].push(post);
+                });
+                return states;
+            }
         },
         created() {
             this.$data.app = this.$parent;

@@ -130,6 +130,41 @@ limitations under the License.
   .dmt-user-posts {
     margin-bottom: 2rem;
 
+    .sidebar {
+      padding: .5rem .5rem 2rem;
+
+      ul {
+        &.post-stats {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          margin: 1rem .5rem .5rem;
+
+          li {
+            margin: 0 .25rem;
+
+            b {
+              display: inline-block;
+              margin: 1rem 0 0;
+            }
+
+            hr {
+              background: #ddd;
+              border: none;
+              box-shadow: none;
+              height: 1px;
+              width: 50%;
+              margin: .25rem 0;
+            }
+
+            ul {
+              margin: 0 0 0 1rem;
+            }
+          }
+        }
+      }
+    }
+
     .navbar {
       margin-bottom: .5rem;
     }
