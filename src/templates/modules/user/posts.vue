@@ -182,10 +182,6 @@ limitations under the License.
     const storage = require('../../../utils/storage');
     const getUserPosts = require('../../../utils/user/getUserPosts');
 
-    const user = (window.location.pathname.startsWith('/community/questions/') ?
-        document.body.querySelector('.question-container .section-primary .postable-info-bar-container .username').textContent
-        : window.location.pathname.match(/\/community\/users\/(.+)/)[1]);
-
     const UserChart = require('./chart');
 
     module.exports = {
@@ -204,6 +200,8 @@ limitations under the License.
         methods: {
             loadUserPosts() {
                 this.$data.state = 1;
+
+                const user = window.location.pathname.match(/\/community\/users\/(.+)/)[1];
                 getUserPosts(user).then(data => {
                     // Hide the original contributions
                     document.querySelector('.large_column section:not(.dmt)').style.display = 'none';

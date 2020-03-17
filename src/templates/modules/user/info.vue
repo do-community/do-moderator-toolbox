@@ -80,10 +80,6 @@ limitations under the License.
 <script>
     const getUserData = require('../../../utils/user/getUserData');
 
-    const user = (window.location.pathname.startsWith('/community/questions/') ?
-        document.body.querySelector('.question-container .section-primary .postable-info-bar-container .username').textContent
-        : window.location.pathname.match(/\/community\/users\/(.+)/)[1]);
-
     module.exports = {
         name: 'UserInfo',
         data() {
@@ -94,6 +90,8 @@ limitations under the License.
         },
         created() {
             this.$data.app = this.$parent;
+
+            const user = window.location.pathname.match(/\/community\/users\/(.+)/)[1];
             getUserData(user).then(data => {
                 this.$data.user = data;
             });
