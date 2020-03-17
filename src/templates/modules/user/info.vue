@@ -40,6 +40,11 @@ limitations under the License.
             <code>{{ user.attributes.email }}</code>
 
             <h4 class="header_label">
+                Username
+            </h4>
+            <code>{{ user.attributes.username }}</code>
+
+            <h4 class="header_label">
                 UUID
             </h4>
             <code>{{ user.attributes.uuid }}</code>
