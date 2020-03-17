@@ -18,15 +18,15 @@ limitations under the License.
     <div v-if="app.$data.state === 'settings'">
         <h4>Moderator Toolbox Settings</h4>
 
-        <PrettyCheck class="p-switch p-fill" :checked="hideModeratorToolbarInitial" @change="hideModeratorToolbar">
+        <PrettyCheck v-model="hideModeratorToolbar" class="p-switch p-fill" @change="save">
             Hide Moderator Toolbar
         </PrettyCheck>
 
-        <PrettyCheck class="p-switch p-fill" :checked="openOnLoadInitial" @change="openOnLoad">
+        <PrettyCheck class="p-switch p-fill" :v-model="openOnLoad" @change="save">
             Open Toolbox on Page Load
         </PrettyCheck>
 
-        <PrettyCheck class="p-switch p-fill" :checked="loadPostsOnLoadInitial" @change="loadPostsOnLoad">
+        <PrettyCheck v-model="loadPostsOnLoad" class="p-switch p-fill" @change="save">
             Load User Posts on Profile Load
         </PrettyCheck>
     </div>
@@ -72,28 +72,22 @@ limitations under the License.
         data() {
             return {
                 app: null,
-                hideModeratorToolbarInitial: storage.get('hideModeratorToolbar'),
-                openOnLoadInitial: storage.get('openOnLoad'),
-                loadPostsOnLoadInitial: storage.get('loadPostsOnLoad'),
+                hideModeratorToolbar: storage.get('hideModeratorToolbar') || false,
+                openOnLoad: storage.get('openOnLoad') || false,
+                loadPostsOnLoad: storage.get('loadPostsOnLoad') || false,
             };
         },
         methods: {
-            hideModeratorToolbar(val) {
-                storage.set('hideModeratorToolbar', val);
-                runCallbacks(this.$data.app);
-            },
-            openOnLoad(val) {
-                storage.set('openOnLoad', val);
-                runCallbacks(this.$data.app);
-            },
-            loadPostsOnLoad(val) {
-                storage.set('loadPostsOnLoad', val);
+            save() {
+                storage.set('hideModeratorToolbar', this.$data.hideModeratorToolbar);
+                storage.set('openOnLoad', this.$data.openOnLoad);
+                storage.set('loadPostsOnLoad', this.$data.loadPostsOnLoad);
                 runCallbacks(this.$data.app);
             },
         },
         created() {
             this.$data.app = this.$parent;
-            runCallbacks(this.$data.app);
+            this.save();
         },
     };
 </script>
