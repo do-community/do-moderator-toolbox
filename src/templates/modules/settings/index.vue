@@ -22,12 +22,19 @@ limitations under the License.
             Hide Moderator Toolbar
         </PrettyCheck>
 
-        <PrettyCheck class="p-switch p-fill" :v-model="openOnLoad" @change="save">
-            Open Toolbox on Page Load
+        <br /><br />
+
+        <PrettyCheck v-model="openOnLoad" class="p-switch p-fill" @change="save">
+            Open Toolbox on <b>Every</b> Page Load
+        </PrettyCheck>
+        <PrettyCheck v-model="openHourOnLoad" class="p-switch p-fill" @change="save">
+            Open Toolbox <b>Once per Hour</b> on Page Load
         </PrettyCheck>
 
+        <br /><br />
+
         <PrettyCheck v-model="loadPostsOnLoad" class="p-switch p-fill" @change="save">
-            Load User Posts on Profile Load
+            Load All User Posts and Stats on Profile Load
         </PrettyCheck>
     </div>
     <div v-else-if="app.$data.state === 'home'">
@@ -41,6 +48,7 @@ limitations under the License.
     const PrettyCheck = require('pretty-checkbox-vue/check');
 
     let openedOnLoad = false;
+    let openedHourOnLoad = false;
 
     const callbacks = {
         hideModeratorToolbar: () => {
@@ -50,12 +58,24 @@ limitations under the License.
                 document.body.classList.remove('dmt-hide-toolbar');
             }
         },
-        openOnLoad: app => {
+        openHourOnLoad: app => {
             if (!openedOnLoad) {
                 if (storage.get('openOnLoad')) {
                     app.$data.showToolbox = true;
                 }
                 openedOnLoad = true;
+            }
+        },
+        openOnLoad: app => {
+            if (!openedHourOnLoad) {
+                if (storage.get('openHourOnLoad')) {
+                    const last = storage.get('openHourOnLoadLast');
+                    if (!last || last < Date.now() - 1000 * 60 * 60) {
+                        storage.set('openHourOnLoadLast', Date.now());
+                        app.$data.showToolbox = true;
+                    }
+                }
+                openedHourOnLoad = true;
             }
         },
     };
@@ -74,6 +94,7 @@ limitations under the License.
                 app: null,
                 hideModeratorToolbar: storage.get('hideModeratorToolbar') || false,
                 openOnLoad: storage.get('openOnLoad') || false,
+                openHourOnLoad: storage.get('openHourOnLoad') || true,
                 loadPostsOnLoad: storage.get('loadPostsOnLoad') || false,
             };
         },
@@ -81,6 +102,7 @@ limitations under the License.
             save() {
                 storage.set('hideModeratorToolbar', this.$data.hideModeratorToolbar);
                 storage.set('openOnLoad', this.$data.openOnLoad);
+                storage.set('openHourOnLoad', this.$data.openHourOnLoad);
                 storage.set('loadPostsOnLoad', this.$data.loadPostsOnLoad);
                 runCallbacks(this.$data.app);
             },
