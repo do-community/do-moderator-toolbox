@@ -16,11 +16,20 @@ limitations under the License.
 
 <template>
     <div v-if="app.$data.state === 'home'" class="dmt-queues">
-        <a v-for="queue in Object.values(queues)" class="dmt-button" :href="queue.link">{{ queue.text }}</a>
+        <a v-for="queue in Object.values(queues)" class="dmt-button" :href="queue.link">
+            {{ queue.text }}
+            {{ queue.count !== null ? ` (${queue.count})` : '' }}
+        </a>
+
+        <small v-if="!countsLoaded">
+            <a class="dmt-button dmt-button-secondary" @click="loadCounts">Load queue counts</a>
+        </small>
     </div>
 </template>
 
 <script>
+    const storage = require('../../../utils/storage');
+
     const encodeQueryData = data => {
         const ret = [];
         for (let d in data)
@@ -33,11 +42,49 @@ limitations under the License.
             link: '/community/moderation/under_review?moderation=true',
             text: 'Under Review',
             count: null,
+            async getCount() {
+                const resp = await fetch('https://www.digitalocean.com/community/moderation/under_review?moderation=true&per_page=1');
+                const html = document.createElement('div');
+                html.innerHTML = await resp.text();
+
+                let posts = html.querySelector('.layout-wrapper h2');
+                posts = posts && posts.textContent
+                    ? posts.textContent.match('There are ([\\d,]+) Under Review Posts?')
+                    : [];
+                posts = posts.length > 1 ? posts[1] : '?';
+
+                return posts.toLocaleString();
+            },
         },
         flagged: {
             link: '/community/moderation/flagged?moderation=true',
             text: 'Flagged',
             count: null,
+            async getCount() {
+                const resp = await fetch('https://www.digitalocean.com/community/moderation/flagged?moderation=true&per_page=1');
+                const html = document.createElement('div');
+                html.innerHTML = await resp.text();
+
+                let flagged = html.querySelector('.layout-wrapper h2');
+                flagged = flagged && flagged.textContent
+                    ? flagged.textContent.match('There are ([\\d,]+) Flagged Posts?')
+                    : [];
+                flagged = flagged.length > 1 ? flagged[1] : '?';
+
+                let tutorials = html.querySelectorAll('.layout-wrapper h3');
+                tutorials = tutorials && tutorials.length > 0 && tutorials[0].textContent
+                    ? tutorials[0].textContent.match('Tutorial Feedback \\(([\\d,]+)\\)')
+                    : [];
+                tutorials = tutorials.length > 1 ? tutorials[1] : '?';
+
+                let tools = html.querySelectorAll('.layout-wrapper h3');
+                tools = tools && tools.length > 1 && tools[1].textContent
+                    ? tools[1].textContent.match('Tool Feedback \\(([\\d,]+)\\)')
+                    : [];
+                tools = tools.length > 1 ? tools[1] : '?';
+
+                return `${flagged.toLocaleString()}:${tutorials.toLocaleString()}:${tools.toLocaleString()}`;
+            },
         },
         unansweredQuestions: {
             link: '/community/questions?secondary_filter=unanswered',
@@ -71,10 +118,26 @@ limitations under the License.
             return {
                 app: null,
                 queues,
+                countsLoaded: false,
             };
         },
         created() {
             this.$data.app = this.$parent;
+        },
+        mounted() {
+            if (storage.get('queueCountsOnLoad')) {
+                this.loadCounts();
+            }
+        },
+        methods: {
+            loadCounts() {
+                this.$data.countsLoaded = true;
+                Object.keys(this.$data.queues).forEach(key => {
+                    this.$data.queues[key].getCount().then(count => {
+                        this.$data.queues[key].count = count;
+                    });
+                });
+            },
         },
     };
 </script>

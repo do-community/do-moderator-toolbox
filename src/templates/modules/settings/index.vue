@@ -36,6 +36,12 @@ limitations under the License.
         <PrettyCheck v-model="loadPostsOnLoad" class="p-switch p-fill" @change="save">
             Load All User Posts and Stats on Profile Load
         </PrettyCheck>
+
+        <br /><br />
+
+        <PrettyCheck v-model="queueCountsOnLoad" class="p-switch p-fill" @change="save">
+            Load Queue counts on Page Load
+        </PrettyCheck>
     </div>
     <div v-else-if="app.$data.state === 'home'">
         <hr />
@@ -96,6 +102,7 @@ limitations under the License.
                 openOnLoad: storage.get('openOnLoad') || false,
                 openHourOnLoad: storage.get('openHourOnLoad') || true,
                 loadPostsOnLoad: storage.get('loadPostsOnLoad') || false,
+                queueCountsOnLoad: storage.get('queueCountsOnLoad') || false,
             };
         },
         methods: {
@@ -104,6 +111,7 @@ limitations under the License.
                 storage.set('openOnLoad', this.$data.openOnLoad);
                 storage.set('openHourOnLoad', this.$data.openHourOnLoad);
                 storage.set('loadPostsOnLoad', this.$data.loadPostsOnLoad);
+                storage.set('queueCountsOnLoad', this.$data.queueCountsOnLoad);
                 runCallbacks(this.$data.app);
             },
         },
