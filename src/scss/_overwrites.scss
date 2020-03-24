@@ -43,5 +43,13 @@ html {
         left: 20px;
       }
     }
+
+    &.profile {
+      .layout-wrapper {
+        .layout_columns {
+          flex-flow: row nowrap;
+        }
+      }
+    }
   }
 }

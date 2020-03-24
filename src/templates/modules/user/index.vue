@@ -226,7 +226,7 @@ limitations under the License.
                     elementDOMButtons.style.margin = '60px 30px 0';
                     elementDOMButtons.style.width = '100%';
                     elementDOMButtons.appendChild(instanceDOMButtons.$el);
-                    const userContainer = document.querySelector('.layout-wrapper .layout_columns');
+                    const userContainer = document.querySelector('.layout-wrapper');
                     if (userContainer) {
                         userContainer.insertBefore(elementDOMButtons, userContainer.firstChild);
 
