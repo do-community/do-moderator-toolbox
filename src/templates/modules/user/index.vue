@@ -215,7 +215,7 @@ limitations under the License.
                     const instanceDOMUserPosts = new DOMUserPosts({ parent: this.$parent });
                     instanceDOMUserPosts.$mount();
                     const largeColumn = document.querySelector('.large_column');
-                    if (largeColumn) largeColumn.insertBefore(instanceDOMUserPosts.$el, largeColumn.firstChild);
+                    if (largeColumn) largeColumn.insertBefore(instanceDOMUserPosts.$el, largeColumn.lastElementChild);
 
                     // Inject a second set of buttons into the DOM
                     const DOMButtons = Vue.extend(this.constructor);

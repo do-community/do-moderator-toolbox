@@ -204,7 +204,7 @@ limitations under the License.
                 const user = window.location.pathname.match(/\/community\/users\/(.+)/)[1];
                 getUserPosts(user).then(data => {
                     // Hide the original contributions
-                    document.querySelector('.large_column section:not(.dmt)').style.display = 'none';
+                    document.querySelector('.large_column').lastElementChild.style.display = 'none';
 
                     // Show our full contributions
                     this.$data.state = 2;
