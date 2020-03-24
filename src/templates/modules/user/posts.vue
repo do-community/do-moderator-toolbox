@@ -16,18 +16,20 @@ limitations under the License.
 
 <template>
     <section class="dmt">
-        <h3 class="section_header">
-            All User Posts
-        </h3>
-
         <div class="dmt-user-posts feed_container">
             <div v-if="state === 0">
-                <a class="dmt-button" @click="loadUserPosts()">Load all posts by user</a>
+                <p><a class="dmt-button" @click="loadUserPosts()">Load all posts by user</a></p>
+                <br />
             </div>
             <div v-if="state === 1">
                 <p>User posts are loading...</p>
+                <br />
             </div>
             <div v-if="state === 2">
+                <h3 class="section_header">
+                    User stats
+                </h3>
+
                 <div class="sidebar">
                     <UserChart :posts="posts"></UserChart>
 
@@ -103,7 +105,18 @@ limitations under the License.
                     <!--<b>Total Views: {{ views(posts).toLocaleString() }}</b>-->
                 </div>
 
-                <nav class="navbar">
+                <br />
+                <h3 class="section_header">
+                    User Contributions
+                </h3>
+
+                <p>
+                    <a class="dmt-button" @click="toggleContributions">
+                        {{ showContributions ? 'Show public contributions' : 'Show all contributions' }}
+                    </a>
+                </p>
+
+                <nav v-if="showContributions" class="navbar">
                     <ul role="menubar" class="primary bounded">
                         <li role="menuitem">
                             <a :class="filter === null ? 'active' : ''" @click="filterSet(null)">
@@ -138,7 +151,7 @@ limitations under the License.
                     </ul>
                 </nav>
 
-                <div class="feed">
+                <div v-if="showContributions" class="feed">
                     <div class="filter-objects">
                         <ul class="feedable-list">
                             <li v-for="(post, i) in posts"
@@ -195,6 +208,7 @@ limitations under the License.
                 state: 0,
                 posts: null,
                 filter: null,
+                showContributions: true,
             };
         },
         methods: {
@@ -204,7 +218,9 @@ limitations under the License.
                 const user = window.location.pathname.match(/\/community\/users\/(.+)/)[1];
                 getUserPosts(user).then(data => {
                     // Hide the original contributions
-                    document.querySelector('.large_column').lastElementChild.style.display = 'none';
+                    const originalContribs = document.querySelector('.large_column').lastElementChild;
+                    originalContribs.style.display = 'none';
+                    originalContribs.querySelector('.section_header').style.display = 'none';
 
                     // Show our full contributions
                     this.$data.state = 2;
@@ -236,6 +252,16 @@ limitations under the License.
                     states[post.attributes.state].push(post);
                 });
                 return states;
+            },
+            toggleContributions() {
+                if (this.$data.showContributions) {
+                    this.$data.showContributions = false;
+                    document.querySelector('.large_column').lastElementChild.style.display = '';
+                    return;
+                }
+
+                this.$data.showContributions = true;
+                document.querySelector('.large_column').lastElementChild.style.display = 'none';
             },
         },
         created() {
