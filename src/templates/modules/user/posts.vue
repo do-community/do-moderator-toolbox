@@ -97,6 +97,10 @@ limitations under the License.
                                 <li v-for="(statePosts, state) in states(posts.filter(p => p.type === 'comments'))">
                                     {{ title(state) }}: {{ statePosts.length.toLocaleString() }}
                                 </li>
+                                <li><hr /></li>
+                                <li v-for="(commentablePosts, commentable) in commentables(posts.filter(p => p.type === 'comments'))">
+                                    {{ title(commentable) }}: {{ commentablePosts.length.toLocaleString() }}
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -252,6 +256,15 @@ limitations under the License.
                     states[post.attributes.state].push(post);
                 });
                 return states;
+            },
+            commentables(posts) {
+                const commentables = {};
+                posts.forEach(post => {
+                    if (!(post.attributes['commentable-type'] in commentables))
+                        commentables[post.attributes['commentable-type']] = [];
+                    commentables[post.attributes['commentable-type']].push(post);
+                });
+                return commentables;
             },
             toggleContributions() {
                 if (this.$data.showContributions) {
