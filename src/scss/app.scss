@@ -189,7 +189,7 @@ limitations under the License.
           }
 
           &[data-state="under_review"] {
-            background: rgba($blue, .3);
+            background: $review;
           }
 
           .eyebrow,

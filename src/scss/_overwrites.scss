@@ -31,6 +31,7 @@ html {
     @include post-color(".spam", $spam);
     @include post-color(".pending", $spam);
     @include post-color(".deleted-response", $trash);
+    @include post-color(".under-review", $review);
 
     &.dmt-hide-toolbar {
       margin-left: 0;
