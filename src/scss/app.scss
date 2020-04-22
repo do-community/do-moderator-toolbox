@@ -128,6 +128,17 @@ limitations under the License.
   }
 
   .dmt-user-posts {
+    &.dmt-questions {
+      border-top: 1px solid #ccc;
+      font-size: .9rem;
+      margin: 32px 0 -16px;
+      padding: 32px 0 0;
+
+      .navbar {
+        box-shadow: none;
+      }
+    }
+
     .sidebar {
       padding: .5rem 1rem 1rem;
 

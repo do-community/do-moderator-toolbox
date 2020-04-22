@@ -19,4 +19,5 @@ module.exports = [
     require('./macros/index.vue'),
     require('./user/index.vue'),
     require('./settings/index.vue'),
+    require('./questions/index.vue'), // Shows nothing in toolbox
 ];

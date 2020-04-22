@@ -34,7 +34,13 @@ limitations under the License.
         <br /><br />
 
         <PrettyCheck v-model="loadPostsOnLoad" class="p-switch p-fill" @change="save">
-            Load All User Posts and Stats on Profile Load
+            Load All User Posts and Stats on Profile Page Load
+        </PrettyCheck>
+
+        <br /><br />
+
+        <PrettyCheck v-model="loadQuestionsOnLoad" class="p-switch p-fill" @change="save">
+            Load Other Questions from User on Question Page Load
         </PrettyCheck>
 
         <br /><br />
@@ -102,6 +108,7 @@ limitations under the License.
                 openOnLoad: storage.get('openOnLoad') || false,
                 openHourOnLoad: storage.get('openHourOnLoad') || true,
                 loadPostsOnLoad: storage.get('loadPostsOnLoad') || false,
+                loadQuestionsOnLoad: storage.get('loadQuestionsOnLoad') || false,
                 queueCountsOnLoad: storage.get('queueCountsOnLoad') || false,
             };
         },
@@ -111,6 +118,7 @@ limitations under the License.
                 storage.set('openOnLoad', this.$data.openOnLoad);
                 storage.set('openHourOnLoad', this.$data.openHourOnLoad);
                 storage.set('loadPostsOnLoad', this.$data.loadPostsOnLoad);
+                storage.set('loadQuestionsOnLoad', this.$data.loadQuestionsOnLoad);
                 storage.set('queueCountsOnLoad', this.$data.queueCountsOnLoad);
                 runCallbacks(this.$data.app);
             },
