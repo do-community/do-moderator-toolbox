@@ -24,7 +24,9 @@ limitations under the License.
                 <p>User questions are loading...</p>
             </div>
             <div v-if="state === 2">
-                <p v-if="posts.length === 0">No other questions from user.</p>
+                <p v-if="posts.length === 0">
+                    No other questions from user.
+                </p>
                 <div v-else>
                     <nav class="navbar">
                         <ul role="menubar" class="primary bounded">

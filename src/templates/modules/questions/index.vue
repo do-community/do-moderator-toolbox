@@ -16,6 +16,7 @@ limitations under the License.
 
 <template>
     <!-- This module shows nothing in the toolbox itself -->
+    <div></div>
 </template>
 
 <script>
