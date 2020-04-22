@@ -31,6 +31,7 @@ limitations under the License.
                                :value="val.value"
                                :placeholder="val.default"
                                class="dmt-input"
+                               required="required"
                                @input="updateInserts"
                         />
                     </div>
