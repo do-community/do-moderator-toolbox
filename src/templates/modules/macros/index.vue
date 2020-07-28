@@ -17,7 +17,7 @@ limitations under the License.
 <template>
     <div v-if="active()">
         <div v-if="['home', 'macros'].includes(app.$data.state)">
-            <h4>Question response macros</h4>
+            <h4>Response macros</h4>
             <dropdown ref="dropdown" @input="input"></dropdown>
         </div>
         <div v-if="app.$data.state === 'macros'">
@@ -41,8 +41,8 @@ limitations under the License.
             </div>
             <textarea v-model="rendered" :rows="rows" class="dmt-input"></textarea>
             <div>
-                <a class="dmt-button" @click="post">Post as Answer</a>
-                <a class="dmt-button dmt-button-secondary" @click="insert">Insert into Answer textbox</a>
+                <a class="dmt-button" @click="post">Post as response</a>
+                <a class="dmt-button dmt-button-secondary" @click="insert">Insert into textbox</a>
             </div>
         </div>
     </div>
@@ -53,30 +53,22 @@ limitations under the License.
     const { responses, render, getInserts, setInserts } = require('./data');
     const dropdown = require('./dropdown.vue');
 
-    const answerInput = document.getElementById('answer_content');
-
-    const answerInputEvent = () => {
-        const event = new Event('input', {
-            bubbles: true,
-            cancelable: true,
-        });
-        answerInput.dispatchEvent(event);
-    };
-
-    const setAnswerInput = val => {
-        answerInput.value = val;
-        answerInputEvent();
-    };
-
     module.exports = {
         name: 'Macros',
         components: {
             dropdown,
         },
         methods: {
-            active() {
+            activeQuestions() {
                 return !!(window.location.pathname.match(/\/community\/questions\/.+/));
             },
+            activeSpamFlags() {
+                return !!(window.location.pathname.match(/\/community\/spam_flags\/.+/));
+            },
+            active() {
+                return this.activeQuestions() || this.activeSpamFlags();
+            },
+
             reset() {
                 this.$data.app.$data.state = 'home';
                 this.$data.macro = '';
@@ -106,18 +98,49 @@ limitations under the License.
                     this.$data.app.$data.showToolbox = true;
                 });
             },
+
+            formElement() {
+                if (this.activeQuestions()) return document.getElementById('new_answer');
+                if (this.activeSpamFlags()) return document.getElementById('new_comment');
+            },
+            inputElement() {
+                return this.formElement().querySelector('textarea');
+            },
+            buttonElement() {
+                return this.formElement().querySelector('button[type="submit"]');
+            },
+            setInput(val) {
+                // Set the value
+                const input = this.inputElement();
+                input.value = val;
+
+                // Send a fake input event
+                const event = new Event('input', {
+                    bubbles: true,
+                    cancelable: true,
+                });
+                input.dispatchEvent(event);
+            },
             insert() {
+                // Set
                 this.render();
-                setAnswerInput(this.$data.rendered);
+                this.setInput(this.$data.rendered);
+
+                // Reset
                 this.reset();
                 this.$refs.dropdown.set(null);
                 this.$data.app.$data.showToolbox = false;
-                answerInput.focus();
+
+                // Focus on input
+                this.inputElement().focus();
             },
             post() {
+                // Set & submit
                 this.render();
-                setAnswerInput(this.$data.rendered);
-                document.querySelector('#new_answer .answer-submit-button').click();
+                this.setInput(this.$data.rendered);
+                this.buttonElement().click();
+
+                // Reset
                 this.reset();
                 this.$refs.dropdown.set(null);
                 this.$data.app.$data.showToolbox = false;
@@ -147,8 +170,10 @@ limitations under the License.
             elementDOMDropdown.appendChild(titleDOMDropdown);
             elementDOMDropdown.appendChild(instanceDOMDropdown.$el);
             elementDOMDropdown.style.marginBottom = '1.5em';
-            const answerForm = document.querySelector('.new-answer .response');
-            if (answerForm) answerForm.insertBefore(elementDOMDropdown, answerForm.firstChild);
+
+            // Inject above input box
+            const formContainer = this.formElement().parentElement;
+            formContainer.insertBefore(elementDOMDropdown, formContainer.firstChild);
         },
     };
 </script>
