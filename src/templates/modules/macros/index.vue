@@ -172,8 +172,13 @@ limitations under the License.
             elementDOMDropdown.style.marginBottom = '1.5em';
 
             // Inject above input box
-            const formContainer = this.formElement().parentElement;
-            formContainer.insertBefore(elementDOMDropdown, formContainer.firstChild);
+            const form = this.formElement();
+            if (form) {
+                const formContainer = form.parentElement;
+                if (formContainer) {
+                    formContainer.insertBefore(elementDOMDropdown, formContainer.firstChild);
+                }
+            }
         },
     };
 </script>

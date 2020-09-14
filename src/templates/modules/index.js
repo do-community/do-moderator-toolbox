@@ -20,4 +20,5 @@ module.exports = [
     require('./user/index.vue'),
     require('./settings/index.vue'),
     require('./questions/index.vue'), // Shows nothing in toolbox
+    require('./tutorials/index.vue'), // Shows nothing in toolbox
 ];
