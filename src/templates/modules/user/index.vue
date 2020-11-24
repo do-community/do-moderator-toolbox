@@ -37,6 +37,7 @@ limitations under the License.
 
 <script>
     const Vue = require('vue').default;
+    const isAdmin = require('../../../utils/isAdmin');
     const archiveUser = require('../../../utils/user/archiveUser');
     const disableUser = require('../../../utils/user/disableUser');
     const getUserData = require('../../../utils/user/getUserData');
@@ -45,7 +46,6 @@ limitations under the License.
     const UserInfo = require('./info');
     const UserPosts = require('./posts');
 
-
     const onQuestion = () => {
         return !!(window.location.pathname.match(/\/community\/questions\/.+/));
     };
@@ -53,9 +53,8 @@ limitations under the License.
         return !!(window.location.pathname.match(/\/community\/users\/.+/));
     };
     const active = () => {
-        return onQuestion() || onUser();
+        return isAdmin() && (onQuestion() || onUser());
     };
-
 
     const user = active() ? (window.location.pathname.startsWith('/community/questions/') ?
         document.body.querySelector('.question-container .section-primary .postable-info-bar-container .username').textContent

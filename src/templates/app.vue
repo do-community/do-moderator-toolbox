@@ -35,7 +35,7 @@ limitations under the License.
 
 <script>
     // Load in utils
-    const getCurrentAdmin = require('../utils/getCurrentAdmin');
+    const getCurrentUser = require('../utils/getCurrentUser');
 
     // Load in core components
     const Header = require('./core/header.vue');
@@ -57,12 +57,11 @@ limitations under the License.
                 state: 'home',
                 showToolbox: false,
                 modules,
-                user: getCurrentAdmin(),
+                user: getCurrentUser(),
             };
         },
         methods: {
             keyListener(e) {
-                console.log(e);
                 if (e.target !== document.body) return;
                 if (e.key === '`') return this.$data.showToolbox = !this.$data.showToolbox;
                 if (e.key === 'Escape' || e.key === 'Esc') return this.$data.showToolbox = false;

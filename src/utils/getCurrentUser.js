@@ -1,5 +1,5 @@
 /*
-Copyright 2019 DigitalOcean
+Copyright 2020 DigitalOcean
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@ limitations under the License.
 
 module.exports = () => {
     if (!document.body.classList.contains('signed-in')) return;
-    if (!document.body.classList.contains('admin-user')) return;
     return {
         username: document.body.getAttribute('data-user-id'),
         first_name: document.body.querySelector('nav.navbar ul.primary li:last-child header').textContent.split(' ')[0],

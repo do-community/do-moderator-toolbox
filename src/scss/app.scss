@@ -125,11 +125,14 @@ limitations under the License.
       margin: 0;
     }
 
-    > code {
-      display: inline-block;
-      font-size: 13px;
-      margin: 0 0 8px;
-      padding: 0 8px;
+    &,
+    > i {
+      > code {
+        display: inline-block;
+        font-size: 13px;
+        margin: 0 0 8px;
+        padding: 0 8px;
+      }
     }
   }
 

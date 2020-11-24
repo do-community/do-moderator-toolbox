@@ -19,7 +19,7 @@ limitations under the License.
         <div v-if="user.attributes['is-disabled']" class="dmt-badge dmt-badge-trash">
             Disabled
         </div>
-        <div v-if="user.attributes.email.includes('_archived@')" class="dmt-badge dmt-badge-spam">
+        <div v-if="def(user.attributes.email) && user.attributes.email.includes('_archived@')" class="dmt-badge dmt-badge-spam">
             Archived
         </div>
 
@@ -27,17 +27,19 @@ limitations under the License.
             <h4 class="header_label">
                 Created
             </h4>
-            <code>{{ (new Date(user.attributes['created-at'])).toLocaleString() }}</code>
+            <code>{{ date(user.attributes['created-at']) }}</code>
 
             <h4 class="header_label">
                 Updated
             </h4>
-            <code>{{ (new Date(user.attributes['updated-at'])).toLocaleString() }}</code>
+            <code v-if="def(user.attributes['updated-at'])">{{ date(user.attributes['updated-at']) }}</code>
+            <i v-else><code>Private information</code></i>
 
             <h4 class="header_label">
                 Email
             </h4>
-            <code>{{ user.attributes.email }}</code>
+            <code v-if="def(user.attributes.email)">{{ user.attributes.email }}</code>
+            <i v-else><code>Private information</code></i>
 
             <h4 class="header_label">
                 Username
@@ -45,14 +47,19 @@ limitations under the License.
             <code>{{ user.attributes.username }}</code>
 
             <h4 class="header_label">
-                UUID
+                Cloud UUID
             </h4>
             <code>{{ user.attributes.uuid }}</code>
 
             <h4 class="header_label">
-                ID
+                Community ID
             </h4>
             <code>{{ user.id }}</code>
+
+            <h4 class="header_label">
+                Location
+            </h4>
+            <code>{{ user.attributes.location || 'Not set' }}</code>
 
             <h4 class="header_label">
                 Seen username modal
@@ -72,7 +79,8 @@ limitations under the License.
             <h4 class="header_label">
                 Internal User
             </h4>
-            <code>{{ user.attributes['is-internal'] ? 'Yes' : 'No' }}</code>
+            <code v-if="def(user.attributes['is-internal'])">{{ user.attributes['is-internal'] ? 'Yes' : 'No' }}</code>
+            <i v-else><code>Private information</code></i>
 
             <h4 class="header_label">
                 Disabled User
@@ -93,12 +101,17 @@ limitations under the License.
                 user: null,
             };
         },
+        methods: {
+            date: string => (new Date(string)).toLocaleString(),
+            def: object => object !== undefined,
+        },
         created() {
             this.$data.app = this.$parent;
 
             const user = window.location.pathname.match(/\/community\/users\/(.+)/)[1];
             getUserData(user).then(data => {
                 this.$data.user = data;
+                console.log(data);
             });
         },
     };

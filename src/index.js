@@ -17,11 +17,11 @@ limitations under the License.
 if (!window._babelPolyfill) require('babel-polyfill');
 const Vue = require('vue').default;
 const App = require('./templates/app.vue');
-const getCurrentAdmin = require('./utils/getCurrentAdmin');
+const getCurrentUser = require('./utils/getCurrentUser');
 
 window.runModeratorToolbox = () => {
-    // Check we're logged in as an admin user
-    if (getCurrentAdmin() === undefined) return;
+    // Check we're logged in
+    if (getCurrentUser() === undefined) return;
 
     // Load the app
     const div = document.createElement('div');

@@ -15,7 +15,7 @@ limitations under the License.
 -->
 
 <template>
-    <div v-if="app.$data.state === 'home'" class="dmt-queues">
+    <div v-if="active() && app.$data.state === 'home'" class="dmt-queues">
         <a v-for="queue in Object.values(queues)" class="dmt-button" :href="queue.link">
             {{ queue.text }}
             {{ queue.count !== null ? ` (${queue.count})` : '' }}
@@ -28,6 +28,7 @@ limitations under the License.
 </template>
 
 <script>
+    const isAdmin = require('../../../utils/isAdmin');
     const storage = require('../../../utils/storage');
 
     const encodeQueryData = data => {
@@ -130,6 +131,7 @@ limitations under the License.
             }
         },
         methods: {
+            active: isAdmin,
             loadCounts() {
                 this.$data.countsLoaded = true;
                 Object.keys(this.$data.queues).forEach(key => {

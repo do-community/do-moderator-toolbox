@@ -37,27 +37,27 @@ limitations under the License.
                                 </a>
                             </li>
                             <li role="menuitem">
-                                <a :class="filter === 'published' ? 'active' : ''" @click="filterSet('published')">
+                                <a v-if="counts.published" :class="filter === 'published' ? 'active' : ''" @click="filterSet('published')">
                                     Published
-                                    ({{ posts.filter(p => p.attributes.state === 'published').length.toLocaleString() }})
+                                    ({{ counts.published.toLocaleString() }})
                                 </a>
                             </li>
                             <li role="menuitem">
-                                <a :class="filter === 'rejected' ? 'active' : ''" @click="filterSet('rejected')">
+                                <a v-if="counts.rejected" :class="filter === 'rejected' ? 'active' : ''" @click="filterSet('rejected')">
                                     Spam
-                                    ({{ posts.filter(p => p.attributes.state === 'rejected').length.toLocaleString() }})
+                                    ({{ counts.rejected.toLocaleString() }})
                                 </a>
                             </li>
                             <li role="menuitem">
-                                <a :class="filter === 'under_review' ? 'active' : ''" @click="filterSet('under_review')">
+                                <a v-if="counts.under_review" :class="filter === 'under_review' ? 'active' : ''" @click="filterSet('under_review')">
                                     Under Review
-                                    ({{ posts.filter(p => p.attributes.state === 'under_review').length.toLocaleString() }})
+                                    ({{ counts.under_review.toLocaleString() }})
                                 </a>
                             </li>
                             <li role="menuitem">
-                                <a :class="filter === 'trashed' ? 'active' : ''" @click="filterSet('trashed')">
+                                <a v-if="counts.trashed" :class="filter === 'trashed' ? 'active' : ''" @click="filterSet('trashed')">
                                     Trash
-                                    ({{ posts.filter(p => p.attributes.state === 'trashed').length.toLocaleString() }})
+                                    ({{ counts.trashed.toLocaleString() }})
                                 </a>
                             </li>
                         </ul>
@@ -113,6 +113,7 @@ limitations under the License.
                 app: null,
                 state: 0,
                 posts: null,
+                counts: {},
                 filter: null,
             };
         },
@@ -126,6 +127,10 @@ limitations under the License.
                     // Show our full contributions
                     this.$data.state = 2;
                     this.$data.posts = data.filter(post => post.type === 'questions' && post.attributes.slug !== slug);
+                    this.$data.counts = this.$data.posts.reduce((acc, post) => {
+                        acc[post.attributes.state] = (acc[post.attributes.state] || 0) + 1;
+                        return acc;
+                    }, {});
                 });
             },
             title(str) {

@@ -43,11 +43,13 @@ limitations under the License.
             Load Other Questions from User on Question Page Load
         </PrettyCheck>
 
-        <br /><br />
+        <template v-if="isAdmin()">
+            <br /><br />
 
-        <PrettyCheck v-model="queueCountsOnLoad" class="p-switch p-fill" @change="save">
-            Load Queue counts on Page Load
-        </PrettyCheck>
+            <PrettyCheck v-model="queueCountsOnLoad" class="p-switch p-fill" @change="save">
+                Load Queue counts on Page Load
+            </PrettyCheck>
+        </template>
     </div>
     <div v-else-if="app.$data.state === 'home'">
         <hr />
@@ -56,6 +58,7 @@ limitations under the License.
 </template>
 
 <script>
+    const isAdmin = require('../../../utils/isAdmin');
     const storage = require('../../../utils/storage');
     const PrettyCheck = require('pretty-checkbox-vue/check');
 
@@ -113,6 +116,7 @@ limitations under the License.
             };
         },
         methods: {
+            isAdmin,
             save() {
                 storage.set('hideModeratorToolbar', this.$data.hideModeratorToolbar);
                 storage.set('openOnLoad', this.$data.openOnLoad);
