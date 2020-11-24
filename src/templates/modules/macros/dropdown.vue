@@ -47,7 +47,7 @@ limitations under the License.
                 this.$data.select = val;
             },
             input(val) {
-                this.$emit('input', val);
+                this.$emit('input', val, context);
             },
         },
         created() {

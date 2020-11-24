@@ -86,11 +86,12 @@ limitations under the License.
             render() {
                 this.$data.rendered = setInserts(this.$data.macro, this.$data.inserts);
             },
-            input(val) {
+            input(val, context) {
                 if (val === null) return this.reset();
+                if (context === null) return this.reset();
                 this.$data.app.$data.state = 'macros';
                 this.$refs.dropdown.set(val);
-                this.$data.macro = render(responses[val], this.$data.app);
+                this.$data.macro = render(responses[context][val], this.$data.app);
                 this.$data.inserts = getInserts(this.$data.macro);
                 this.$nextTick(() => {
                     this.render();
