@@ -98,6 +98,12 @@ limitations under the License.
       display: block;
       padding: 1em;
       width: 100%;
+
+      &.dmt-input-invalid {
+        background: $trash;
+        border-color: $trash;
+        box-shadow: 0 0 5px $trash;
+      }
     }
 
     textarea {
@@ -248,6 +254,11 @@ limitations under the License.
       &:hover {
         background: desaturate($dark-blue, 80%);
       }
+    }
+
+    &.dmt-button-disabled {
+      opacity: .25;
+      pointer-events: none;
     }
   }
 

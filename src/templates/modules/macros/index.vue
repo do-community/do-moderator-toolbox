@@ -30,7 +30,7 @@ limitations under the License.
                                :data-insert="key"
                                :value="val.value"
                                :placeholder="val.default"
-                               class="dmt-input"
+                               class="dmt-input dmt-input-invalid"
                                required="required"
                                @input="updateInserts"
                         />
@@ -41,8 +41,12 @@ limitations under the License.
             </div>
             <textarea v-model="rendered" :rows="rows" class="dmt-input"></textarea>
             <div>
-                <a class="dmt-button" @click="post">Post as response</a>
-                <a class="dmt-button dmt-button-secondary" @click="insert">Insert into textbox</a>
+                <a :class="`dmt-button${missingInserts() ? ' dmt-button-disabled' : ''}`"
+                   @click="post"
+                >Post as response</a>
+                <a :class="`dmt-button dmt-button-secondary${missingInserts() ? ' dmt-button-disabled' : ''}`"
+                   @click="insert"
+                >Insert into textbox</a>
             </div>
         </div>
     </div>
@@ -79,7 +83,13 @@ limitations under the License.
                 const elms = this.$refs.inserts.querySelectorAll('[data-insert]');
                 for (const elm of elms) {
                     const key = elm.getAttribute('data-insert');
-                    if (key in this.$data.inserts) this.$data.inserts[key].value = elm.value;
+                    if (key in this.$data.inserts) {
+                        this.$data.inserts[key].value = elm.value;
+
+                        // Highlight inputs
+                        if (elm.value) elm.classList.remove('dmt-input-invalid');
+                        else elm.classList.add('dmt-input-invalid');
+                    }
                 }
                 this.render();
             },
@@ -145,6 +155,9 @@ limitations under the License.
                 this.reset();
                 this.$refs.dropdown.set(null);
                 this.$data.app.$data.showToolbox = false;
+            },
+            missingInserts() {
+                return Object.values(this.$data.inserts).filter(x => !x.value).length !== 0;
             },
         },
         data() {
