@@ -16,9 +16,9 @@
   "author": "DigitalOcean",
   "license": "Apache-2.0",
   "dependencies": {
-    "@babel/runtime": "^7.11.2",
+    "@babel/runtime": "^7.12.5",
     "babel-polyfill": "^6.26.0",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "parcel-bundler": "^1.12.4",
     "pretty-checkbox-vue": "^1.1.9",
     "vue": "^2.6.12",
@@ -27,10 +27,10 @@
   },
   "devDependencies": {
     "@vue/component-compiler-utils": "^3.2.0",
-    "copyfiles": "^2.3.0",
-    "eslint": "^7.8.1",
-    "eslint-plugin-vue": "^6.2.2",
-    "sass": "^1.26.10",
+    "copyfiles": "^2.4.0",
+    "eslint": "^7.14.0",
+    "eslint-plugin-vue": "^7.1.0",
+    "sass": "^1.29.0",
     "sass-lint": "^1.13.1",
     "vue-template-compiler": "^2.6.12"
   }
