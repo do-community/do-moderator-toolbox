@@ -1,5 +1,5 @@
 <!--
-Copyright 2019 DigitalOcean
+Copyright 2020 DigitalOcean
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -15,13 +15,19 @@ limitations under the License.
 -->
 
 <template>
-    <vueSelect v-model="select" :options="Object.keys(responses)" @input="input"></vueSelect>
+    <vueSelect v-if="context" v-model="select" :options="Object.keys(responses[context])" @input="input"></vueSelect>
 </template>
 
 <script>
+    const vueSelect = require('vue-select').default;
     const { responses } = require('./data');
 
-    const vueSelect = require('vue-select').default;
+    const context =
+        window.location.pathname.match(/\/community\/questions\/.+/)
+            ? 'questions'
+            : (window.location.pathname.match(/\/community\/spam_flags\/.+/)
+                ? 'flags'
+                : null);
 
     module.exports = {
         name: 'MacrosDropdown',
@@ -32,6 +38,7 @@ limitations under the License.
             return {
                 app: null,
                 select: null,
+                context,
                 responses,
             };
         },
