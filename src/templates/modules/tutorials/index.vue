@@ -52,14 +52,15 @@ limitations under the License.
             this.$data.app = this.$parent;
 
             if (onTutorial()) {
-                const query = window.location.search.match(/[?&]comment=(\d+)/);
+                // This is now handled by Community itself
+                /*const query = window.location.search.match(/[?&]comment=(\d+)/);
                 if (query && query[1]) {
                     this.$data.commentsObserver = new MutationObserver(() => this.find(query[1]));
                     this.$data.commentsObserver.observe(
                         document.getElementById('comments-tab'),
                         { attributes: true, childList: true, subtree: true },
                     );
-                }
+                }*/
             }
         },
     };
