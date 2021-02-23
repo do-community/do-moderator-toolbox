@@ -1,5 +1,5 @@
 /*
-Copyright 2019 DigitalOcean
+Copyright 2021 DigitalOcean
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,8 +17,10 @@ limitations under the License.
 $blue: #0069ff;
 $dark-blue: #031b4e;
 $white: #fff;
+$warn: #da4453;
 $gray: darken($white, 10%);
 $spam: rgba(#f6bb42, .3);
-$trash: rgba(#da4453, .3);
+$trash: rgba($warn, .3);
 $review: rgba($blue, .3);
+$link-bg: rgba($warn, .15);
 $radius: 4px;

@@ -1,5 +1,5 @@
 /*
-Copyright 2020 DigitalOcean
+Copyright 2021 DigitalOcean
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,11 +14,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-@mixin post-color($selector, $color,) {
-  .question-content#{$selector},
+@mixin response-class($selector) {
+  .question-container .content-body.question-content#{$selector},
   #{$selector} .answer-response > .response-body,
   #{$selector}.response.comment-body-container > div > .response-body,
   #{$selector} > .response-body {
+    @content;
+  }
+}
+
+@mixin post-color($selector, $color) {
+  @include response-class($selector) {
     background: $color;
     border-radius: 8px;
     color: darken(rgba($color, 1), 35%);
@@ -26,12 +32,26 @@ limitations under the License.
   }
 }
 
+@mixin link-highlight($selector) {
+  @include response-class($selector) {
+    a {
+      background: $link-bg;
+      border: 1px solid $warn;
+      border-radius: 2px;
+      margin: -1px -2px;
+      padding: 1px 2px;
+    }
+  }
+}
+
 html {
   body {
     @include post-color(".spam", $spam);
+    @include link-highlight(".spam");
     @include post-color(".pending", $spam);
     @include post-color(".deleted-response", $trash);
     @include post-color(".under-review", $review);
+    @include link-highlight(".under-review");
 
     &.dmt-hide-toolbar {
       margin-left: 0;
