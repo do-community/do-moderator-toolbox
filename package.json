@@ -11,27 +11,29 @@
     "test": "npm run test:eslint && npm run test:scss",
     "test:eslint": "eslint 'src/**/*.{js,vue}'",
     "test:eslint:fix": "npm run test:eslint -- --fix",
-    "test:scss": "sass-lint 'src/**/*.scss' --verbose --no-exit --config .sasslintrc"
+    "test:scss": "stylelint 'src/**/*.scss' --config node_modules/do-bulma/.stylelintrc.json"
   },
   "author": "DigitalOcean",
   "license": "Apache-2.0",
   "dependencies": {
-    "@babel/runtime": "^7.12.5",
+    "@babel/runtime": "^7.14.6",
     "babel-polyfill": "^6.26.0",
     "chart.js": "^2.9.4",
-    "parcel-bundler": "^1.12.4",
+    "parcel-bundler": "^1.12.5",
     "pretty-checkbox-vue": "^1.1.9",
-    "vue": "^2.6.12",
+    "vue": "^2.6.14",
     "vue-hot-reload-api": "^2.3.4",
-    "vue-select": "^3.10.8"
+    "vue-select": "^3.11.2"
   },
   "devDependencies": {
-    "@vue/component-compiler-utils": "^3.2.0",
+    "@vue/component-compiler-utils": "^3.2.2",
     "copyfiles": "^2.4.1",
-    "eslint": "^7.15.0",
-    "eslint-plugin-vue": "^7.2.0",
-    "sass": "^1.30.0",
-    "sass-lint": "^1.13.1",
-    "vue-template-compiler": "^2.6.12"
+    "do-bulma": "git+https://github.com/do-community/do-bulma.git",
+    "eslint": "^7.31.0",
+    "eslint-plugin-vue": "^7.14.0",
+    "sass": "^1.35.2",
+    "stylelint": "^13.13.1",
+    "stylelint-order": "^4.1.0",
+    "vue-template-compiler": "^2.6.14"
   }
 }
