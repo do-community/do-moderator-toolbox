@@ -11,7 +11,7 @@
     "test": "npm run test:eslint && npm run test:scss",
     "test:eslint": "eslint 'src/**/*.{js,vue}'",
     "test:eslint:fix": "npm run test:eslint -- --fix",
-    "test:scss": "sass-lint 'src/**/*.scss' --verbose --no-exit --config .sasslintrc"
+    "test:scss": "stylelint 'src/**/*.scss' --config node_modules/do-bulma/.stylelintrc.json"
   },
   "author": "DigitalOcean",
   "license": "Apache-2.0",
@@ -28,10 +28,12 @@
   "devDependencies": {
     "@vue/component-compiler-utils": "^3.2.2",
     "copyfiles": "^2.4.1",
+    "do-bulma": "git+https://github.com/do-community/do-bulma.git",
     "eslint": "^7.31.0",
     "eslint-plugin-vue": "^7.14.0",
     "sass": "^1.35.2",
-    "sass-lint": "^1.13.1",
+    "stylelint": "^13.13.1",
+    "stylelint-order": "^4.1.0",
     "vue-template-compiler": "^2.6.14"
   }
 }
